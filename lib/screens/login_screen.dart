@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/widgets/app_bar.dart';
 
 class LoginDemo extends StatefulWidget {
   @override
@@ -10,9 +12,7 @@ class _LoginDemoState extends State<LoginDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Connexion"),
-      ),
+      appBar: MyAppBar(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -30,9 +30,10 @@ class _LoginDemoState extends State<LoginDemo> {
             ),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                decoration: InputDecoration(
+                style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
                     hintText: 'abc@gmail.com'),
@@ -44,26 +45,27 @@ class _LoginDemoState extends State<LoginDemo> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
-                decoration: InputDecoration(
+                style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Mot de passe',
                     hintText: 'Saisir un mdp sécurisé'),
               ),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 //TODO FORGOT PASSWORD SCREEN GOES HERE
               },
               child: Text(
-                'Mot de passe oublié',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                'Mot de passe oublié ?',
+                style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.blue),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.amber, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
                   // Navigator.push(
@@ -71,14 +73,18 @@ class _LoginDemoState extends State<LoginDemo> {
                 },
                 child: Text(
                   'Se connecter',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 130,
             ),
-            Text('Nouvel utilisateur ? Créer un compte')
+            Text('Nouvel utilisateur ?', style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),),
+            TextButton(
+              onPressed: (){},
+              child : Text('Créer un compte', style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.blue),)
+            )
           ],
         ),
       ),
