@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/widgets/app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginDemo extends StatefulWidget {
   @override
