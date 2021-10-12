@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:miaged/services/auth_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginDemo extends StatefulWidget {
   @override
@@ -9,19 +11,40 @@ class LoginDemo extends StatefulWidget {
 }
 
 class _LoginDemoState extends State<LoginDemo> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController pwdController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: MyAppBar(),
+      // appBar: MyAppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Miaged",
+          style: GoogleFonts.comfortaa(
+              color: Colors.black, fontSize: 35, fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 60.0),
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 40, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                "Connexion",
+                style: GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0, bottom: 30.0),
               child: Center(
                 child: Container(
-                    width: 200,
+                    width: 400,
                     height: 150,
                     /*decoration: BoxDecoration(
                         color: Colors.red,
@@ -33,6 +56,7 @@ class _LoginDemoState extends State<LoginDemo> {
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                controller: emailController,
                 style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -45,6 +69,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                controller: pwdController,
                 obscureText: true,
                 style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 decoration: const InputDecoration(
@@ -67,25 +92,33 @@ class _LoginDemoState extends State<LoginDemo> {
               width: 250,
               decoration: BoxDecoration(
                   color: Colors.amber, borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (_) => HomePage()));
+                  context.read<AuthenticationService>().signIn(
+                      email: emailController.text.trim(),
+                      password: pwdController.text.trim());
                 },
                 child: Text(
                   'Se connecter',
-                  style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style:
+                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 ),
               ),
             ),
             const SizedBox(
               height: 130,
             ),
-            Text('Nouvel utilisateur ?', style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),),
+            Text(
+              'Nouvel utilisateur ?',
+              style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),
+            ),
             TextButton(
-              onPressed: (){},
-              child : Text('Créer un compte', style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.blue),)
-            )
+                onPressed: () {},
+                child: Text(
+                  'Créer un compte',
+                  style:
+                      GoogleFonts.comfortaa(fontSize: 12, color: Colors.blue),
+                ))
           ],
         ),
       ),
