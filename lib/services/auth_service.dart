@@ -10,7 +10,7 @@ class AuthenticationService {
   Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
 
   /// This won't pop routes so you could do something like
-  /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => FALSE);
   /// after you called this method if you want to pop all routes.
   Future<void> signOut() async {
     await _firebaseAuth.signOut();

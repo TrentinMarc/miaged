@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:miaged/screens/home_page.dart';
+import 'package:miaged/screens/register.dart';
+import 'package:miaged/services/authentication.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:miaged/services/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginDemo extends StatefulWidget {
@@ -13,7 +15,7 @@ class LoginDemo extends StatefulWidget {
 class _LoginDemoState extends State<LoginDemo> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwdController = TextEditingController();
-
+  final AuthenticationService _authenticationService = AuthenticationService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,10 +95,19 @@ class _LoginDemoState extends State<LoginDemo> {
               decoration: BoxDecoration(
                   color: Colors.amber, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
-                onPressed: () {
-                  context.read<AuthenticationService>().signIn(
-                      email: emailController.text.trim(),
-                      password: pwdController.text.trim());
+                onPressed: () async {
+                  // context.read<AuthenticationService>().signIn(
+                  //     email: emailController.text.trim(),
+                  //     password: pwdController.text.trim());
+                  var email = emailController.text.trim();
+                  var pwd = pwdController.text.trim();
+                  var result = await _authenticationService.signInWithEmailAndPwd(email, pwd);
+                  if(result != null){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }
                 },
                 child: Text(
                   'Se connecter',
@@ -106,14 +117,19 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
             const SizedBox(
-              height: 130,
+              height: 50,
             ),
             Text(
               'Nouvel utilisateur ?',
               style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Register()),
+                  );
+                },
                 child: Text(
                   'Créer un compte',
                   style:
