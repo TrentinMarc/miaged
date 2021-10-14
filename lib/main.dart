@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:miaged/screens/home_page.dart';
 import 'package:miaged/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:miaged/screens/splashscreen_wrapper.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:provider/provider.dart';
 
@@ -28,22 +29,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const AuthenticationWrapper(),
+        home: const SplashScreenWrapper(),
       ),
     );
-  }
-}
-
-class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
-    if (firebaseUser != null) {
-      return HomePage();
-    } else {
-      return LoginDemo();
-    }
   }
 }

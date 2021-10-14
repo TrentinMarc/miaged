@@ -4,6 +4,7 @@ import 'package:miaged/screens/register.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:miaged/widgets/popup.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -106,6 +107,11 @@ class _LoginDemoState extends State<LoginDemo> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  }else{
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => Popup().build(context),
                     );
                   }
                 },
