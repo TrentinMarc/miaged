@@ -10,10 +10,11 @@ class SplashScreenWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
-    if(user == null){
-      return LoginDemo();
-    }else{
+    print("hhh : " + user.toString());
+    if(user != null){
       return HomePage();
+    }else{
+      return LoginDemo();
     }
   }
 }
