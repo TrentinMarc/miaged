@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 class Popup extends StatelessWidget {
-  const Popup({Key? key}) : super(key: key);
+  final String popupName;
+  final String popupMessage;
+  const Popup({Key? key, required this.popupName, required this.popupMessage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Popup example'),
+      title: Text(popupName),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text("Hello"),
+        children: [
+          Text(popupMessage),
         ],
       ),
       actions: [

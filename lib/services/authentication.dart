@@ -1,25 +1,17 @@
-
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:miaged/models/user.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final controller = StreamController<AppUser>();
+  // final controller = StreamController<AppUser>();
 
-  AppUser? _userFromFirebaseUser(User? user){
-    if(user != null){
-      return AppUser(uid: user.uid);
-    }else{
-      return null;
-    }
-
+  AppUser? _userFromFirebaseUser(User? user) {
+    return user != null ? AppUser(user.uid) : null;
   }
 
   Stream<AppUser?> get user {
-    return _auth.authStateChanges().map((User? user) => _userFromFirebaseUser(user));
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
   Future signInWithEmailAndPwd(String email, String pwd) async{
@@ -35,17 +27,8 @@ class AuthenticationService {
   }
 
   Future signOut() async{
-    // try{
-    //   return await _auth.signOut();
-    // } catch(exception){
-    //   print(exception.toString());
-    //   return null;
-    // }
     try{
-      UserCredential result =
-      await _auth.signInWithEmailAndPassword(email: "marc.trentin06@gmail.com", password: "abcdef");
-      User? user = result.user;
-      return _userFromFirebaseUser(user);
+      return await _auth.signOut();
     } catch(exception){
       print(exception.toString());
       return null;

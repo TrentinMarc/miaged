@@ -63,7 +63,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Email',
+                    labelText: 'Login',
                     hintText: 'abc@gmail.com'),
               ),
             ),
@@ -77,7 +77,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Mot de passe',
+                    labelText: 'Password',
                     hintText: 'Saisir un mdp sécurisé'),
               ),
             ),
@@ -103,15 +103,10 @@ class _LoginDemoState extends State<LoginDemo> {
                   var email = emailController.text.trim();
                   var pwd = pwdController.text.trim();
                   var result = await _authenticationService.signInWithEmailAndPwd(email, pwd);
-                  if(result != null){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  }else{
+                  if(result == null){
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) => Popup().build(context),
+                      builder: (BuildContext context) => const Popup(popupName: "Erreur", popupMessage: "Identifiants incorrects...",).build(context),
                     );
                   }
                 },

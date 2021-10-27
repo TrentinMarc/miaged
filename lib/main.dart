@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return StreamProvider<AppUser?>.value(
       value: AuthenticationService().user,
       initialData: null,
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreenWrapper(),
+        home: SplashScreenWrapper(),
       ),
     );
   }
