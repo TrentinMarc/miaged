@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/screens/login_screen.dart';
-import 'package:miaged/widgets/app_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:miaged/services/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Register extends StatefulWidget {

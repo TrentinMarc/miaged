@@ -5,10 +5,9 @@ import 'package:miaged/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
-  const SplashScreenWrapper({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    print("a");
     final user = Provider.of<AppUser?>(context);
     if(user == null){
       return LoginDemo();

@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/services/authentication.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final AuthenticationService _authenticationService = AuthenticationService();
+
   @override
   Size get preferredSize => const Size.fromHeight(50);
-  final AuthenticationService _authenticationService = AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     return AppBar(

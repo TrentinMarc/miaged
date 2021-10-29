@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'models/user.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Miaged',
+        home: SplashScreenWrapper(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
