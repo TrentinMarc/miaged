@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:miaged/screens/home_page.dart';
+import 'package:miaged/screens/home/home_page.dart';
 import 'package:miaged/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:miaged/screens/splashscreen_wrapper.dart';

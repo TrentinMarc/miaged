@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/screens/home_page.dart';
+import 'package:miaged/screens/home/home_page.dart';
 import 'package:miaged/screens/register.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/widgets/app_bar.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/services/authentication.dart';
-import 'package:miaged/services/clothes.dart';
+import 'package:miaged/services/product_service.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(50);
   final AuthenticationService _authenticationService = AuthenticationService();
-  final ClothesService _clothesService = ClothesService();
+  final ProductService _productService = ProductService();
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -22,7 +22,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: const Icon(Icons.arrow_back),
         onPressed: () async {
           // await _authenticationService.signOut();
-          await _clothesService.getClothes();
+          await _productService.getProducts();
         },
       ),
       actions: const [
