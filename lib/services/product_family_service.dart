@@ -1,22 +1,22 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:miaged/models/product.dart';
+import 'package:miaged/models/product_family.dart';
 
 class ProductService {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
 
-  Future<List<Product>> getProducts() async {
+  Future<List<ProductFamily>> getProducts() async {
     try {
-      List<Product> products = [];
+      List<ProductFamily> productFamily = [];
       QuerySnapshot querySnapshot =
-          await _store.collection(Product.COLLECTION_NAME).get();
+          await _store.collection(ProductFamily.COLLECTION_NAME).get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          products.add(Product.fromSnapshot(doc));
+          productFamily.add(ProductFamily.fromSnapshot(doc));
         }
       }
-      return products;
+      return productFamily;
     } catch (exception) {
       print(exception);
       return [];

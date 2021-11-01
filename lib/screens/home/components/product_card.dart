@@ -20,17 +20,17 @@ class ProductCard extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               // For  demo we use fixed height  and width
               // Now we dont need them
               // height: 18.0,
-              // width: 160,
+              width: 200,
               decoration: BoxDecoration(
-                color: Colors.greenAccent,
+                color: Colors.blueGrey,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
-                tag: "${product.id}",
+                tag: product.id,
                 child: Image.network(product.picLink),
               ),
             ),
@@ -44,9 +44,9 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            "\$${product.price}",
+            "\$${product.price.toString()} | ${product.size}",
             style: TextStyle(fontWeight: FontWeight.bold),
-          )
+          ),
         ],
       ),
     );

@@ -25,10 +25,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           await _productService.getProducts();
         },
       ),
-      actions: const [
+      actions: [
         IconButton(
-          icon: Icon(Icons.favorite_border_outlined),
-          onPressed: null,
+          icon: const Icon(Icons.favorite_border_outlined),
+          onPressed: () async {
+            await _authenticationService.signOut();
+          },
         ),
       ],
     );
