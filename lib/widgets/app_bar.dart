@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/services/authentication.dart';
+import 'package:miaged/services/product_service.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AuthenticationService _authenticationService = AuthenticationService();
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
         "Miaged",
         style: GoogleFonts.comfortaa(
-            color: Colors.black, fontSize: 35, fontWeight: FontWeight.w700),
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
       ),
       centerTitle: true,
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.blueGrey,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        onPressed: () async {
-          await _authenticationService.signOut();
+        onPressed: () {
+          // Navigator.pop(context);
         },
       ),
-      actions: const [
+      actions: [
         IconButton(
-          icon: Icon(Icons.favorite_border_outlined),
-          onPressed: null,
+          icon: const Icon(Icons.favorite_border_outlined),
+          onPressed: () async {
+            await _authenticationService.signOut();
+          },
         ),
       ],
     );
