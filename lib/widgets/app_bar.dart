@@ -4,11 +4,10 @@ import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/product_service.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final AuthenticationService _authenticationService = AuthenticationService();
+
   @override
   Size get preferredSize => const Size.fromHeight(50);
-  final AuthenticationService _authenticationService = AuthenticationService();
-  final ProductService _productService = ProductService();
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
