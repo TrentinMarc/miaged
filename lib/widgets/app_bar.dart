@@ -8,21 +8,21 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(50);
   final AuthenticationService _authenticationService = AuthenticationService();
   final ProductService _productService = ProductService();
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
         "Miaged",
         style: GoogleFonts.comfortaa(
-            color: Colors.black, fontSize: 20, fontWeight: FontWeight.w700),
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
       ),
       centerTitle: true,
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.blueGrey,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        onPressed: () async {
-          // await _authenticationService.signOut();
-          await _productService.getProducts();
+        onPressed: () {
+          // Navigator.pop(context);
         },
       ),
       actions: [

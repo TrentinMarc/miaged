@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:miaged/models/product_family.dart';
 
-class ProductService {
+class ProductFamilyService {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
 
-  Future<List<ProductFamily>> getProducts() async {
+  Future<List<ProductFamily>> getProductFamilies() async {
     try {
       List<ProductFamily> productFamily = [];
       QuerySnapshot querySnapshot =
