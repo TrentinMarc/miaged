@@ -1,12 +1,17 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged/models/user.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  AppUser? _userFromFirebaseUser(User? user){
+  AppUser? _userFromFirebaseUser(User? user) {
     return user != null ? AppUser(user.uid) : null;
+  }
+
+  String getCurrentUserId() {
+    return _auth.currentUser!.uid;
   }
 
   Stream<AppUser?> get user {
@@ -15,8 +20,8 @@ class AuthenticationService {
 
   Future signInWithEmailAndPwd(String email, String password) async {
     try {
-      UserCredential result =
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       return _userFromFirebaseUser(user);
     } catch (exception) {
@@ -33,14 +38,15 @@ class AuthenticationService {
       return null;
     }
   }
-  Future registerWithEmailAndPwd(String email, String pwd) async{
-    try{
-      UserCredential result =
-          await _auth.createUserWithEmailAndPassword(email: email, password: pwd);
+
+  Future registerWithEmailAndPwd(String email, String pwd) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: pwd);
       User? user = result.user;
 
       return _userFromFirebaseUser(user!);
-    } catch(exception){
+    } catch (exception) {
       print(exception.toString());
       return null;
     }

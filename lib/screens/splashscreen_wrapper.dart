@@ -7,11 +7,10 @@ import 'package:provider/provider.dart';
 class SplashScreenWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("a");
     final user = Provider.of<AppUser?>(context);
-    if(user == null){
+    if (user == null) {
       return LoginDemo();
-    }else{
+    } else {
       return HomePage();
     }
   }

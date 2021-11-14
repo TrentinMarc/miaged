@@ -7,11 +7,16 @@ import 'package:miaged/screens/details/components/product_title_with_image.dart'
 
 import 'size.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final Product product;
 
   const Body({Key? key, required this.product}) : super(key: key);
 
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -39,17 +44,17 @@ class Body extends StatelessWidget {
                   ),
                   child: Column(
                     children: <Widget>[
-                      ColorAndSize(product: product),
+                      ColorAndSize(product: widget.product),
                       const SizedBox(height: DefaultPadding / 2),
-                      Description(product: product),
+                      Description(product: widget.product),
                       const SizedBox(height: DefaultPadding / 2),
                       // CounterWithFavBtn(),
                       const SizedBox(height: DefaultPadding),
-                      AddToCart(product: product)
+                      AddToCart(product: widget.product)
                     ],
                   ),
                 ),
-                ProductTitleWithImage(product: product)
+                ProductTitleWithImage(product: widget.product)
               ],
             ),
           )
