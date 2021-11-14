@@ -32,7 +32,6 @@ class _CategoriesState extends State<Categories> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final productFamilies = snapshot.data;
-              print(productFamilies);
               return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: productFamilies!.length,

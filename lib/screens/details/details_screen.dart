@@ -4,9 +4,8 @@ import 'package:miaged/models/product.dart';
 import 'package:miaged/screens/details/components/body.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Product product;
-
   const DetailsScreen({Key? key, required this.product}) : super(key: key);
+  final Product product;
 
   @override
   Widget build(BuildContext context) {

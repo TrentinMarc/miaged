@@ -5,9 +5,11 @@ import 'package:miaged/services/product_service.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AuthenticationService _authenticationService = AuthenticationService();
+  final ProductService _productService = ProductService();
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -28,7 +30,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.favorite_border_outlined),
           onPressed: () async {
-            await _authenticationService.signOut();
+            // await _authenticationService.signOut();
+            await _productService
+                .getUserCart(_authenticationService.getCurrentUserId());
           },
         ),
       ],
