@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:miaged/screens/cart/cart_screen.dart';
+import 'package:miaged/screens/home/home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 1;
+  var screens = [HomePage(), CartScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +21,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.black54,
       selectedFontSize: 16,
-      iconSize: 30  ,
+      iconSize: 30,
       onTap: (index) => setState(() => currentIndex = index),
       items: const [
         BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart_sharp),
             label: "Panier",
-            backgroundColor: Color.fromRGBO(0, 85, 164, 1)
-        ),
+            backgroundColor: Color.fromRGBO(0, 85, 164, 1)),
         BottomNavigationBarItem(
           icon: Icon(Icons.credit_card),
           label: "Acheter",
@@ -34,8 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded),
             label: "Profil",
-            backgroundColor: Color.fromRGBO(239, 65, 53, 1)
-        ),
+            backgroundColor: Color.fromRGBO(239, 65, 53, 1)),
       ],
     );
   }

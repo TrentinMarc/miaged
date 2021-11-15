@@ -27,7 +27,6 @@ class _AddToCartState extends State<AddToCart> {
   @override
   void initState() {
     super.initState();
-    print("hihi");
     getDisabledState().then((value) {
       isDisabled = value;
       setState(() {});
@@ -49,7 +48,7 @@ class _AddToCartState extends State<AddToCart> {
         future: getDisabledState(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Please waiting...");
+            return const CircularProgressIndicator();
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
