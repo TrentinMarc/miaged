@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 
 class Description extends StatelessWidget {
@@ -18,12 +19,15 @@ class Description extends StatelessWidget {
           children: [
             const Text(
               "Product Description",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Color(colorSchemeItem)),
               textAlign: TextAlign.left,
             ),
             Text(
               product.description,
-              style: TextStyle(height: 1.5),
+              style: const TextStyle(height: 1.5, color: Colors.white),
             ),
           ],
         ));

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/screens/details/components/body.dart';
 
@@ -10,7 +11,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(colorSchemeMain),
       appBar: buildAppBar(context),
       body: Body(product: product),
     );
@@ -24,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
       ),
       centerTitle: true,
-      backgroundColor: Colors.white10,
+      backgroundColor: Color(colorSchemeBar),
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),

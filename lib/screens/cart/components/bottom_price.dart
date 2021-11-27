@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/constant.dart';
+import 'package:miaged/services/product_service.dart';
 
 class CartBottom extends StatefulWidget {
   const CartBottom({Key? key}) : super(key: key);
@@ -9,8 +11,12 @@ class CartBottom extends StatefulWidget {
 }
 
 class _CartBottomState extends State<CartBottom> {
+  final ProductService _productService = ProductService();
+  late Future<double> total_price;
+
   @override
   Widget build(BuildContext context) {
+    total_price = _productService.getCartTotalPrice();
     return Flexible(
       flex: 1,
       child: Row(
@@ -19,29 +25,39 @@ class _CartBottomState extends State<CartBottom> {
             child: Container(
               child: Center(
                 child: Text(
-                  "Total",
+                  "Total price",
                   style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.w300),
                 ),
               ),
-              color: Colors.red,
+              color: const Color(colorSchemeSubBar),
             ),
             flex: 3,
           ),
           Flexible(
             child: Container(
               child: Center(
-                child: Text(
-                  "250 \$",
-                  style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.w300),
-                ),
+                child: FutureBuilder<double>(
+                    future: total_price,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final price = snapshot.data;
+                        return Text(
+                          price.toString() + " €",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.w300),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
+                      return const CircularProgressIndicator();
+                    }),
               ),
-              color: Colors.pink,
+              color: const Color(colorSchemeSubBar),
             ),
             flex: 4,
           ),

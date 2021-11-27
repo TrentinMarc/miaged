@@ -20,8 +20,7 @@ class _AddToCartState extends State<AddToCart> {
   late bool isDisabled;
 
   Future<bool> getDisabledState() async {
-    return await _productService.isProductAlreadyInCart(
-        widget.product.id, _authenticationService.getCurrentUserId());
+    return await _productService.isProductAlreadyInCart(widget.product.id);
   }
 
   @override
@@ -56,13 +55,21 @@ class _AddToCartState extends State<AddToCart> {
                 children: <Widget>[
                   Expanded(
                     child: SizedBox(
-                        height: 50,
+                        height: 70,
                         child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              onSurface: Colors.transparent),
                           onPressed: isDisabled ? null : _addToCart,
-                          icon: const Icon(Icons.shopping_cart_sharp),
-                          label: Text(isDisabled
-                              ? "Déjà présent dans le panier"
-                              : "Ajouter au panier"),
+                          icon: const Icon(
+                            Icons.shopping_cart_sharp,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            isDisabled
+                                ? "Déjà présent dans le panier"
+                                : "Ajouter au panier",
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         )),
                   ),
                 ],

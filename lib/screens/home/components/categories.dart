@@ -24,7 +24,7 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     listProductFamily = _productFamilyService.getProductFamilies();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: DefaultPadding),
+      padding: const EdgeInsets.symmetric(vertical: defaultPadding),
       child: SizedBox(
         height: 25,
         child: FutureBuilder<List<ProductFamily>>(
@@ -56,7 +56,7 @@ class _CategoriesState extends State<Categories> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: DefaultPadding),
+        padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -64,15 +64,15 @@ class _CategoriesState extends State<Categories> {
               pF.title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: selectedIndex == index ? Colors.black : Colors.black54,
+                color: selectedIndex == index ? Colors.white : Colors.white60,
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: DefaultPadding / 4),
+              margin: const EdgeInsets.only(top: defaultPadding / 4),
               //top padding 5
               height: 2,
               width: 30,
-              color: selectedIndex == index ? Colors.black : Colors.transparent,
+              color: selectedIndex == index ? Colors.white : Colors.transparent,
             )
           ],
         ),

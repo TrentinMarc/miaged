@@ -31,12 +31,12 @@ class _BodyState extends State<Body> {
                   margin: EdgeInsets.only(top: size.height * 0.3),
                   padding: EdgeInsets.only(
                     top: size.height * 0.07,
-                    left: DefaultPadding,
-                    right: DefaultPadding,
+                    left: defaultPadding,
+                    right: defaultPadding,
                   ),
                   // height: 500,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: Color(colorSchemeSubBar),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
@@ -45,11 +45,11 @@ class _BodyState extends State<Body> {
                   child: Column(
                     children: <Widget>[
                       ColorAndSize(product: widget.product),
-                      const SizedBox(height: DefaultPadding / 2),
+                      const SizedBox(height: defaultPadding / 2),
                       Description(product: widget.product),
-                      const SizedBox(height: DefaultPadding / 2),
+                      const SizedBox(height: defaultPadding / 2),
                       // CounterWithFavBtn(),
-                      const SizedBox(height: DefaultPadding),
+                      const SizedBox(height: defaultPadding),
                       AddToCart(product: widget.product)
                     ],
                   ),

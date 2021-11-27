@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 
 class ColorAndSize extends StatelessWidget {
@@ -18,13 +19,13 @@ class ColorAndSize extends StatelessWidget {
             text: TextSpan(
               style: const TextStyle(color: Colors.black54),
               children: [
-                const TextSpan(text: "Size\n"),
+                const TextSpan(
+                    text: "Size\n",
+                    style: TextStyle(color: Color(colorSchemeItem))),
                 TextSpan(
                   text: product.size,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                      fontWeight: FontWeight.bold, color: Colors.white),
                 )
               ],
             ),
