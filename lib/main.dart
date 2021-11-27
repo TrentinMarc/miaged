@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       value: AuthenticationService().user,
       initialData: null,
       child: MaterialApp(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         title: 'Miaged',
         home: SplashScreenWrapper(),
         theme: ThemeData(

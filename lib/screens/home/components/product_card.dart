@@ -22,13 +22,10 @@ class ProductCard extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(DefaultPadding),
-              // For  demo we use fixed height  and width
-              // Now we dont need them
-              // height: 18.0,
+              padding: const EdgeInsets.all(defaultPadding),
               width: 200,
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: const Color(colorSchemeItem),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
@@ -38,16 +35,17 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: DefaultPadding / 4),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: Text(
               // products is out demo list
               product.title,
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
           Text(
             "${product.price.toString()}€ | ${product.size}",
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ],
       ),

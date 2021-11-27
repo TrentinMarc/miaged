@@ -14,7 +14,7 @@ class ProductTitleWithImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: DefaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -25,13 +25,15 @@ class ProductTitleWithImage extends StatelessWidget {
                 .headline4!
                 .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: DefaultPadding),
+          const SizedBox(height: defaultPadding),
           Row(
             children: <Widget>[
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(text: "Price\n"),
+                    const TextSpan(
+                        text: "Price\n",
+                        style: TextStyle(color: Color(colorSchemeItem))),
                     TextSpan(
                       text: "${product.price} €",
                       style: Theme.of(context).textTheme.headline4!.copyWith(
