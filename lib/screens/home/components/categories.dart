@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/models/product_family.dart';
 import 'package:miaged/services/product_family_service.dart';
+import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 import '../../../constant.dart';
 
@@ -41,7 +42,7 @@ class _CategoriesState extends State<Categories> {
               return Text('${snapshot.error}');
             }
             // By default, show a loading spinner.
-            return const CircularProgressIndicator();
+            return const DogoProgressIndicator();
           },
         ),
       ),

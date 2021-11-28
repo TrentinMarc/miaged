@@ -37,8 +37,9 @@ class ProductCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: Text(
-              // products is out demo list
               product.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: Colors.white),
             ),
           ),

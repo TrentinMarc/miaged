@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/screens/home/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/constant.dart';
 import 'package:miaged/screens/register.dart';
 import 'package:miaged/services/authentication.dart';
-import 'package:miaged/widgets/app_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged/widgets/popup.dart';
-import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginDemo extends StatefulWidget {
   @override
@@ -17,19 +14,19 @@ class _LoginDemoState extends State<LoginDemo> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwdController = TextEditingController();
   final AuthenticationService _authenticationService = AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: MyAppBar(),
       appBar: AppBar(
         title: Text(
           "Miaged",
           style: GoogleFonts.comfortaa(
-              color: Colors.black, fontSize: 35, fontWeight: FontWeight.w700),
+              color: Colors.white, fontSize: 35, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(colorSchemeBar),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -37,7 +34,6 @@ class _LoginDemoState extends State<LoginDemo> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 40, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 "Connexion",
                 style: GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
@@ -46,17 +42,13 @@ class _LoginDemoState extends State<LoginDemo> {
             Padding(
               padding: const EdgeInsets.only(top: 40.0, bottom: 30.0),
               child: Center(
-                child: Container(
+                child: SizedBox(
                     width: 400,
                     height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset('assets/images/cover.jpg')),
               ),
             ),
             Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: emailController,
@@ -70,7 +62,6 @@ class _LoginDemoState extends State<LoginDemo> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: pwdController,
                 obscureText: true,
@@ -102,11 +93,16 @@ class _LoginDemoState extends State<LoginDemo> {
                   //     password: pwdController.text.trim());
                   var email = emailController.text.trim();
                   var pwd = pwdController.text.trim();
-                  var result = await _authenticationService.signInWithEmailAndPwd(email, pwd);
-                  if(result == null){
+                  var result = await _authenticationService
+                      .signInWithEmailAndPwd(email, pwd);
+                  if (result == null) {
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) => const Popup(popupName: "Erreur", popupMessage: "Identifiants incorrects",),
+                      builder: (BuildContext context) => const Popup(
+                        popupName: "Erreur",
+                        popupMessage: "Identifiants incorrects",
+                        popupStyle: popupError,
+                      ),
                     );
                   }
                 },

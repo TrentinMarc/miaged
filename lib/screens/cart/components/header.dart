@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constant.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class CartHeader extends StatefulWidget {
   const CartHeader({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _CartHeaderState extends State<CartHeader> {
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
                       }
-                      return const CircularProgressIndicator();
+                      return const DogoProgressIndicator();
                     },
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/screens/cart/components/cart_item.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class CartBody extends StatefulWidget {
   const CartBody({
@@ -22,7 +23,7 @@ class _CartBodyState extends State<CartBody> {
   Widget build(BuildContext context) {
     userCart = _productService.getUserCart();
     return Flexible(
-      flex: 8,
+      flex: 6,
       child: FutureBuilder<List<Product>>(
           future: userCart,
           builder: (context, snapshot) {
@@ -37,7 +38,7 @@ class _CartBodyState extends State<CartBody> {
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-            return const CircularProgressIndicator();
+            return const DogoProgressIndicator();
           }),
     );
   }

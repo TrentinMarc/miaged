@@ -4,6 +4,7 @@ import 'package:miaged/screens/details/details_screen.dart';
 import 'package:miaged/screens/home/components/categories.dart';
 import 'package:miaged/screens/home/components/product_card.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 import '../../constant.dart';
 
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                     return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
+                  return const DogoProgressIndicator();
                 },
               ),
             ),

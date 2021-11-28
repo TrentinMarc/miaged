@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/widgets/popup.dart';
 
 class CartItem extends StatefulWidget {
   const CartItem({Key? key, required this.product, required this.callback})
@@ -68,7 +69,29 @@ class _CartItemState extends State<CartItem> {
                   fillColor: const Color(colorSchemeMain),
                   splashColor: Colors.red,
                   onPressed: () async {
-                    await _productService.removeFromCart(widget.product.id);
+                    var isDeleted =
+                        await _productService.removeFromCart(widget.product.id);
+                    print(isDeleted);
+                    if (isDeleted) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const Popup(
+                          popupName: "Done",
+                          popupMessage: "Item corretly remove from cart !",
+                          popupStyle: popupDeleteSuccess,
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => const Popup(
+                          popupName: "Error",
+                          popupMessage:
+                              "Something gone wrong ... Please try again.",
+                          popupStyle: popupError,
+                        ),
+                      );
+                    }
                     widget.callback();
                   })
             ],

@@ -3,10 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constant.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/services/user_service.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AuthenticationService _authenticationService = AuthenticationService();
   final ProductService _productService = ProductService();
+  final UserService _userService = UserService();
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -31,7 +33,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           icon: const Icon(Icons.favorite_border_outlined),
           onPressed: () async {
-            await _authenticationService.signOut();
+            // await _authenticationService.signOut();
+            await _userService.getCurrentUser();
           },
         ),
       ],

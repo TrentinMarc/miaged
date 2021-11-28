@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/screens/cart/cart_screen.dart';
 import 'package:miaged/screens/home/home_page.dart';
+import 'package:miaged/screens/profile/profile_screen.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/bottom_navigation_bar.dart';
 
@@ -14,9 +15,9 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final List _children = [CartScreen(), HomePage(), CartScreen()];
+  final List _children = [CartScreen(), HomePage(), ProfileScreen()];
 
-  int index = 0;
+  int index = 1;
 
   void updateIndex(int newIndex) {
     setState(() {
