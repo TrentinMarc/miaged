@@ -38,7 +38,7 @@ class _DogoProgressIndicatorState extends State<DogoProgressIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset(lottieDogo, repeat: false, controller: controller,
+    return Lottie.asset(lottieDogo, repeat: true, controller: controller,
         onLoaded: (composotion) {
       controller.duration = composotion.duration;
       controller.forward();

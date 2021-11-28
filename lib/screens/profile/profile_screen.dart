@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:miaged/models/user.dart';
+import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/user_service.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 import 'package:miaged/widgets/popup.dart';
@@ -17,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final UserService _userService = UserService();
-
+  final AuthenticationService _authenticationService = AuthenticationService();
   late Future<User?> user;
 
   var loginController = TextEditingController();
@@ -25,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var bDayController = TextEditingController();
   var addressController = TextEditingController();
   var postalCodeController = TextEditingController();
+  var cityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           addressController.text = currentUser.address;
           postalCodeController.text = currentUser.postalCode;
           bDayController.text = currentUser.birthDayDate;
+          cityController.text = currentUser.city;
           return Container(
             color: Colors.white,
             child: SingleChildScrollView(
@@ -182,6 +185,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Flexible(flex: 2, child: Text("City")),
+                              Flexible(
+                                flex: 6,
+                                child: TextField(
+                                  controller: cityController,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'City',
+                                      hintText: 'Nice',
+                                      contentPadding: EdgeInsets.all(8.0)),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
@@ -200,12 +220,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           postalCodeController.text.trim();
                                       var birthdayDate =
                                           bDayController.text.trim();
+                                      var city = cityController.text.trim();
                                       var newData = User.forUpdate(
                                           login,
                                           password,
                                           birthdayDate,
                                           address,
-                                          postalCode);
+                                          postalCode,
+                                          city);
                                       var isUpdated = await _userService
                                           .updateUser(newData);
                                       if (isUpdated) {
@@ -242,6 +264,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     label: const Text(
                                       "Update my informations",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: SizedBox(
+                                  height: 50,
+                                  child: ElevatedButton.icon(
+                                    style: ElevatedButton.styleFrom(
+                                      onSurface: Colors.transparent,
+                                      primary: Colors.red,
+                                    ),
+                                    onPressed: () async {
+                                      await _authenticationService.signOut();
+                                    },
+                                    icon: const Icon(
+                                      Icons.logout,
+                                      color: Colors.white,
+                                    ),
+                                    label: const Text(
+                                      "Disconnect",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),

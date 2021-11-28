@@ -11,6 +11,7 @@ class User {
   static const PASSWORD = "password";
   static const BIRTHDAY_DATE = "birthdayDate";
   static const POSTAL_CODE = "postalCode";
+  static const CITY = "city";
 
   late String _UID;
   late String _avatarLink;
@@ -19,6 +20,7 @@ class User {
   late String _birthDayDate;
   late String _address;
   late String _postalCode;
+  late String _city;
 
   String get UID => _UID;
 
@@ -34,11 +36,13 @@ class User {
 
   String get postalCode => _postalCode;
 
+  String get city => _city;
+
   User(this._UID, this._avatarLink, this._login, this._password,
-      this._birthDayDate, this._address, this._postalCode);
+      this._birthDayDate, this._address, this._postalCode, this._city);
 
   User.forUpdate(this._login, this._password, this._birthDayDate, this._address,
-      this._postalCode);
+      this._postalCode, this._city);
 
   User.fromSnapshot(DocumentSnapshot snapshot) {
     _UID = snapshot[USER_UID];
@@ -48,10 +52,11 @@ class User {
     _birthDayDate = snapshot[BIRTHDAY_DATE];
     _address = snapshot[ADDRESS];
     _postalCode = snapshot[POSTAL_CODE];
+    _city = snapshot[CITY];
   }
 
   @override
   String toString() {
-    return 'User{_UID: $_UID, _avatarLink: $_avatarLink, _login: $_login, _password: $_password, _birthDayDate: $_birthDayDate, _address: $_address, _postalCode: $_postalCode}';
+    return 'User{_UID: $_UID, _avatarLink: $_avatarLink, _login: $_login, _password: $_password, _birthDayDate: $_birthDayDate, _address: $_address, _postalCode: $_postalCode, _city: $_city}';
   }
 }
