@@ -4,7 +4,7 @@ import 'package:miaged/screens/splashscreen_wrapper.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:provider/provider.dart';
 
-import 'models/user.dart';
+import 'models/app_user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

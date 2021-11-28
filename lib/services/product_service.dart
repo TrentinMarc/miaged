@@ -3,30 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/models/user.dart';
-import 'package:miaged/services/authentication.dart';
+import 'package:miaged/services/user_service.dart';
 
 class ProductService {
   final FirebaseFirestore _store = FirebaseFirestore.instance;
-
-  Future getUserDocId(String idUser) async {
-    try {
-      var userDocId;
-      await _store
-          .collection(AppUser.COLLECTION_NAME)
-          .where(AppUser.UID, isEqualTo: idUser)
-          .get()
-          .then((value) => {
-                if (value.docs.isNotEmpty)
-                  {userDocId = value.docs[0].id}
-                else
-                  {userDocId = ""}
-              });
-      return userDocId;
-    } catch (exception) {
-      print(exception);
-      return null;
-    }
-  }
 
   Future<Product?> getOne(String idProduct) async {
     try {
@@ -42,15 +22,16 @@ class ProductService {
     }
   }
 
-  Future addToCart(String idProduct, String idUser) async {
+  Future addToCart(String idProduct) async {
     try {
-      var userDocId = await getUserDocId(idUser);
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
       if (userDocId != "" && userDocId != null) {
         await _store
-            .collection(AppUser.COLLECTION_NAME)
+            .collection(User.COLLECTION_NAME)
             .doc(userDocId)
-            .collection(AppUser.SUB_COLLECTION_CART_NAME)
-            .add({AppUser.SUB_COLLECTION_CART_ID_PRODUCT: idProduct})
+            .collection(User.SUB_COLLECTION_CART_NAME)
+            .add({User.SUB_COLLECTION_CART_ID_PRODUCT: idProduct})
             .then((_) => print("Correctly added to cart"))
             .catchError((error) => print("Add to cart fail : " + error));
       } else {
@@ -64,19 +45,18 @@ class ProductService {
 
   Future<List<String>> getUserCartIds() async {
     try {
-      final AuthenticationService _authenticationService =
-          AuthenticationService();
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
+
       List<String> products = [];
-      var userDocId =
-          await getUserDocId(_authenticationService.getCurrentUserId());
       QuerySnapshot querySnapshot = await _store
-          .collection(AppUser.COLLECTION_NAME)
+          .collection(User.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(AppUser.SUB_COLLECTION_CART_NAME)
+          .collection(User.SUB_COLLECTION_CART_NAME)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          products.add(doc[AppUser.SUB_COLLECTION_CART_ID_PRODUCT]);
+          products.add(doc[User.SUB_COLLECTION_CART_ID_PRODUCT]);
         }
       }
       return products;
@@ -88,19 +68,17 @@ class ProductService {
 
   Future<List<Product>> getUserCart() async {
     try {
-      final AuthenticationService _authenticationService =
-          AuthenticationService();
       List<Product> products = [];
-      var userDocId =
-          await getUserDocId(_authenticationService.getCurrentUserId());
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
       QuerySnapshot querySnapshot = await _store
-          .collection(AppUser.COLLECTION_NAME)
+          .collection(User.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(AppUser.SUB_COLLECTION_CART_NAME)
+          .collection(User.SUB_COLLECTION_CART_NAME)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          await getOne(doc[AppUser.SUB_COLLECTION_CART_ID_PRODUCT])
+          await getOne(doc[User.SUB_COLLECTION_CART_ID_PRODUCT])
               .then((product) => products.add(product!));
         }
       }
@@ -113,14 +91,12 @@ class ProductService {
 
   Future<int> getCartLength() async {
     try {
-      final AuthenticationService _authenticationService =
-          AuthenticationService();
-      var userDocId =
-          await getUserDocId(_authenticationService.getCurrentUserId());
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
       QuerySnapshot querySnapshot = await _store
-          .collection(AppUser.COLLECTION_NAME)
+          .collection(User.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(AppUser.SUB_COLLECTION_CART_NAME)
+          .collection(User.SUB_COLLECTION_CART_NAME)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -136,14 +112,12 @@ class ProductService {
 
   Stream<int> streamCartLength() async* {
     try {
-      final AuthenticationService _authenticationService =
-          AuthenticationService();
-      var userDocId =
-          await getUserDocId(_authenticationService.getCurrentUserId());
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
       CollectionReference ref = _store
-          .collection(AppUser.COLLECTION_NAME)
+          .collection(User.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(AppUser.SUB_COLLECTION_CART_NAME);
+          .collection(User.SUB_COLLECTION_CART_NAME);
 
       ref.snapshots().listen((querySnapshot) async* {
         print(querySnapshot.docs.length);
@@ -206,28 +180,28 @@ class ProductService {
 
   Future removeFromCart(String id) async {
     try {
-      final AuthenticationService _authenticationService =
-          AuthenticationService();
-      var userDocId =
-          await getUserDocId(_authenticationService.getCurrentUserId());
-
+      final UserService _userService = UserService();
+      var userDocId = await _userService.getUserDocId();
+      var ret = false;
       await _store
-          .collection(AppUser.COLLECTION_NAME)
+          .collection(User.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(AppUser.SUB_COLLECTION_CART_NAME)
-          .where(AppUser.SUB_COLLECTION_CART_ID_PRODUCT, isEqualTo: id)
+          .collection(User.SUB_COLLECTION_CART_NAME)
+          .where(User.SUB_COLLECTION_CART_ID_PRODUCT, isEqualTo: id)
           .limit(1)
           .get()
           .then((querySnapshot) {
         if (querySnapshot.docs.isNotEmpty) {
           for (var doc in querySnapshot.docs.toList()) {
             doc.reference.delete();
+            ret = true;
           }
         }
       });
+      return ret;
     } catch (exception) {
       print(exception);
-      return 0;
+      return false;
     }
   }
 }

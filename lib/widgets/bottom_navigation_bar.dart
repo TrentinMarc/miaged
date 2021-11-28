@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miaged/constant.dart';
 import 'package:miaged/screens/cart/cart_screen.dart';
 import 'package:miaged/screens/home/home_page.dart';
+import 'package:miaged/screens/profile/profile_screen.dart';
 
 typedef void IntCallback(int val);
 
@@ -16,7 +17,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 1;
-  var screens = [HomePage(), CartScreen()];
+  var screens = [CartScreen(), HomePage(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +35,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.shopping_cart_sharp),
-          label: "Panier",
+          label: "Cart",
           backgroundColor: Color(colorSchemeBar),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.credit_card),
-          label: "Acheter",
+          label: "Buy",
           backgroundColor: Color(colorSchemeBar),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle_rounded),
-          label: "Profil",
+          label: "Profile",
           backgroundColor: Color(colorSchemeBar),
         ),
       ],

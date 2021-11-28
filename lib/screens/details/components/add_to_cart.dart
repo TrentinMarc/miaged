@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class AddToCart extends StatefulWidget {
   const AddToCart({
@@ -14,10 +15,12 @@ class AddToCart extends StatefulWidget {
   _AddToCartState createState() => _AddToCartState();
 }
 
-class _AddToCartState extends State<AddToCart> {
+class _AddToCartState extends State<AddToCart>
+    with SingleTickerProviderStateMixin {
   final AuthenticationService _authenticationService = AuthenticationService();
   final ProductService _productService = ProductService();
   late bool isDisabled;
+  late AnimationController controller;
 
   Future<bool> getDisabledState() async {
     return await _productService.isProductAlreadyInCart(widget.product.id);
@@ -33,8 +36,7 @@ class _AddToCartState extends State<AddToCart> {
   }
 
   _addToCart() async {
-    await _productService.addToCart(
-        widget.product.id, _authenticationService.getCurrentUserId());
+    await _productService.addToCart(widget.product.id);
     getDisabledState().then((value) {
       isDisabled = value;
       setState(() {});
@@ -47,7 +49,7 @@ class _AddToCartState extends State<AddToCart> {
         future: getDisabledState(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const DogoProgressIndicator();
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -77,24 +79,5 @@ class _AddToCartState extends State<AddToCart> {
             );
           }
         });
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 20.0),
-    //   child: Row(
-    //     children: <Widget>[
-    //       Expanded(
-    //         child: SizedBox(height: 50, child: _buildElevatedButton()),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
-
-// Widget _buildElevatedButton() {
-//   return ElevatedButton.icon(
-//     onPressed: isDisabled ? null : _addToCart,
-//     icon: const Icon(Icons.shopping_cart_sharp),
-//     label: Text(
-//         isDisabled ? "Déjà présent dans le panier" : "Ajouter au panier"),
-//   );
-// }
 }
