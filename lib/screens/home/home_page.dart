@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/models/product_family.dart';
 import 'package:miaged/screens/details/details_screen.dart';
 import 'package:miaged/screens/home/components/categories.dart';
 import 'package:miaged/screens/home/components/product_card.dart';
@@ -16,16 +17,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    listProduct = _productService.getProducts();
+  }
+
+  void callBack(ProductFamily family) async{
+    listProduct = _productService.getProductsByFamily(family);
+    setState(() {
+
+    });
+  }
   final ProductService _productService = ProductService();
   late Future<List<Product>> listProduct;
 
   @override
   Widget build(BuildContext context) {
-    listProduct = _productService.getProducts();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Categories(),
+        Categories(callBackParent: callBack,),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),

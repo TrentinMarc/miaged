@@ -46,7 +46,7 @@ class _CartBottomState extends State<CartBottom> {
                       if (snapshot.hasData) {
                         final price = snapshot.data;
                         return Text(
-                          price.toString() + " €",
+                          price!.toStringAsFixed(2) + " €",
                           style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontSize: 35,

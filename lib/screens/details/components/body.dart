@@ -5,7 +5,7 @@ import 'package:miaged/screens/details/components/add_to_cart.dart';
 import 'package:miaged/screens/details/components/description.dart';
 import 'package:miaged/screens/details/components/product_title_with_image.dart';
 
-import 'size.dart';
+import 'brand_size.dart';
 
 class Body extends StatefulWidget {
   final Product product;
@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
                   ),
                   child: Column(
                     children: <Widget>[
-                      ColorAndSize(product: widget.product),
+                      BrandAndSize(product: widget.product),
                       const SizedBox(height: defaultPadding / 2),
                       Description(product: widget.product),
                       const SizedBox(height: defaultPadding / 2),

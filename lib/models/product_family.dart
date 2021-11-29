@@ -7,6 +7,9 @@ class ProductFamily {
   static const COLLECTION_NAME = "product_family";
   static const TITLE = "Title";
 
+  // Valeur par défaut permettant de consulter toutes les familles de produits
+  static const ALL_FAMILY_VALUE = "Tous";
+
   String get id => _id;
 
   String get title => _title;
