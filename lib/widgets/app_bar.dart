@@ -34,7 +34,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: const Icon(Icons.favorite_border_outlined),
           onPressed: () async {
             // await _authenticationService.signOut();
-            await _userService.getCurrentUser();
+            // await _userService.getCurrentUser();
+            // await _productService.getProductsByFamily("ZuOLid8cwPQmUnnf2lTJ");
           },
         ),
       ],

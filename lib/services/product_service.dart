@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/models/product_family.dart';
 import 'package:miaged/models/user.dart';
 import 'package:miaged/services/user_service.dart';
 
@@ -146,6 +147,27 @@ class ProductService {
     }
   }
 
+  Future<List<Product>> getProductsByFamily(ProductFamily family) async {
+    try {
+      List<Product> products = [];
+      if(family.title == ProductFamily.ALL_FAMILY_VALUE){
+        products = await getProducts();
+      }else{
+        QuerySnapshot querySnapshot =
+        await _store.collection(Product.COLLECTION_NAME).where(
+            Product.FAMILY, isEqualTo: family.id).get();
+        if (querySnapshot.docs.isNotEmpty) {
+          for (var doc in querySnapshot.docs.toList()) {
+            products.add(Product.fromSnapshot(doc));
+          }
+        }
+      }
+      return products;
+    } catch (exception) {
+      print(exception);
+      return [];
+    }
+  }
   Future<bool> isProductAlreadyInCart(String idProduct) async {
     try {
       List<String> userCartItemsId = await getUserCartIds();

@@ -44,6 +44,11 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Text(
+            product.brand,
+            style: const TextStyle(
+                color: Colors.white, fontStyle: FontStyle.italic),
+          ),
+          Text(
             "${product.price.toString()}€ | ${product.size}",
             style: const TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white),

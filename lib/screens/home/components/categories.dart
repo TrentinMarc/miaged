@@ -5,9 +5,9 @@ import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 import '../../../constant.dart';
 
-// We need satefull widget for our categories
-
 class Categories extends StatefulWidget {
+  const Categories({Key? key, required this.callBackParent}) : super(key: key);
+  final Function callBackParent;
   @override
   _CategoriesState createState() => _CategoriesState();
 }
@@ -15,15 +15,17 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   final ProductFamilyService _productFamilyService = ProductFamilyService();
   late Future<List<ProductFamily>> listProductFamily;
-
-  List<String> categories = ["Hand bag", "Jewellery", "Footwear", "Dresses"];
-
-  // By default our first item will be selected
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     listProductFamily = _productFamilyService.getProductFamilies();
+    listProductFamily.then((list){
+      ProductFamily firstItem = list.singleWhere((element) => element.title == ProductFamily.ALL_FAMILY_VALUE);
+      var index = list.indexWhere((element) => element.title == ProductFamily.ALL_FAMILY_VALUE);
+      list.removeAt(index);
+      list.insert(0, firstItem);
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: defaultPadding),
       child: SizedBox(
@@ -41,8 +43,7 @@ class _CategoriesState extends State<Categories> {
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-            // By default, show a loading spinner.
-            return const DogoProgressIndicator();
+            return const Center(child: DogoProgressIndicator());
           },
         ),
       ),
@@ -54,6 +55,7 @@ class _CategoriesState extends State<Categories> {
       onTap: () {
         setState(() {
           selectedIndex = index;
+          widget.callBackParent(pF);
         });
       },
       child: Padding(
