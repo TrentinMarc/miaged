@@ -53,7 +53,8 @@ class UserService {
         User.PASSWORD: user.password,
         User.ADDRESS: user.address,
         User.POSTAL_CODE: user.postalCode,
-        User.BIRTHDAY_DATE: user.birthDayDate
+        User.BIRTHDAY_DATE: user.birthDayDate,
+        User.AVATAR_LINK: user.avatarLink
       });
       return true;
     } catch (exception) {

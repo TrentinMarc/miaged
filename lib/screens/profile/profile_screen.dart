@@ -6,6 +6,7 @@ import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/user_service.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 import 'package:miaged/widgets/popup.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../constant.dart';
 
@@ -28,6 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var postalCodeController = TextEditingController();
   var cityController = TextEditingController();
 
+  var avatarController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     user = _userService.getCurrentUser();
@@ -37,13 +40,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (snapshot.data != null) {
           final data = snapshot.data;
           final User currentUser = data!;
-
           loginController.text = currentUser.login;
           passwordController.text = currentUser.password;
           addressController.text = currentUser.address;
           postalCodeController.text = currentUser.postalCode;
           bDayController.text = currentUser.birthDayDate;
           cityController.text = currentUser.city;
+
+          avatarController.text = currentUser.avatarLink;
           return Container(
             color: Colors.white,
             child: SingleChildScrollView(
@@ -53,15 +57,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: <Widget>[
                     Container(
                       color: Colors.white,
-                      child: Center(
-                          child: GestureDetector(
-                        onTap: () {},
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(currentUser.avatarLink),
-                          backgroundColor: Colors.black,
-                          maxRadius: 55,
-                        ),
-                      )),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                await showDialog<String>(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Center(
+                                        child: Text(
+                                          "Please paste your avatar's link below",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      content: TextField(
+                                        controller: avatarController,
+                                      ),
+                                      actions: [
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Done"))
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: const CachedNetworkImageProvider(defaultAvatarLink),
+                                foregroundImage: CachedNetworkImageProvider(currentUser.avatarLink),
+                                backgroundColor: Colors.black,
+                                maxRadius: 55,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.info),
+                            tooltip: 'Tips',
+                            color: const Color(royalBlue),
+                            onPressed: () {
+                              FocusScope.of(context).unfocus();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    const Popup(
+                                  popupName: "Tips",
+                                  popupMessage:
+                                      "Here you can update your perosnal data, click the picture to edit ! (if passed url isn't available, you'll have the default avatar.)",
+                                  popupStyle: popupInfo,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(25.0),
@@ -221,13 +274,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       var birthdayDate =
                                           bDayController.text.trim();
                                       var city = cityController.text.trim();
+                                      var avatarLink =
+                                          avatarController.text.trim();
                                       var newData = User.forUpdate(
                                           login,
                                           password,
                                           birthdayDate,
                                           address,
                                           postalCode,
-                                          city);
+                                          city,
+                                          avatarLink);
                                       var isUpdated = await _userService
                                           .updateUser(newData);
                                       if (isUpdated) {

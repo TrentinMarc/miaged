@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -60,10 +61,12 @@ class _PopupState extends State<Popup> with SingleTickerProviderStateMixin {
               onLoaded: (composotion) {
             controller.duration = composotion.duration;
             controller.forward();
-          }, fit: BoxFit.fill),
+          
+          }, fit: BoxFit.fill, width: 200, height: 200),
           Text(
             widget.popupMessage,
-            style: GoogleFonts.openSans(color: Colors.black, fontSize: 20),
+            style: GoogleFonts.openSans(color: Colors.black, fontSize: 15, ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

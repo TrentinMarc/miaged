@@ -42,7 +42,7 @@ class User {
       this._birthDayDate, this._address, this._postalCode, this._city);
 
   User.forUpdate(this._login, this._password, this._birthDayDate, this._address,
-      this._postalCode, this._city);
+      this._postalCode, this._city, this._avatarLink);
 
   User.fromSnapshot(DocumentSnapshot snapshot) {
     _UID = snapshot[USER_UID];
