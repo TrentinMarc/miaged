@@ -8,5 +8,6 @@ const popupError = "assets/lotties/error.json";
 const popupSuccess = "assets/lotties/success.json";
 const popupDeleteSuccess = "assets/lotties/delete.json";
 const popupInfo = "assets/lotties/info.json";
+const popupWelcome = "assets/lotties/welcome.json";
 const lottieDogo = "assets/lotties/dogo.json";
 const defaultAvatarLink = "https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png";
