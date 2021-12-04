@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/tools/constant.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class CartHeader extends StatefulWidget {

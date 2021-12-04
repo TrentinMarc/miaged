@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged/models/app_user.dart';
+import 'package:miaged/models/user.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -27,6 +28,34 @@ class AuthenticationService {
     } catch (exception) {
       print(exception.toString());
       return null;
+    }
+  }
+
+  Future<Map<String, dynamic>> newUser(MiagedUser newUser) async {
+    try {
+      Map<String, dynamic> response = {};
+      await _auth
+          .createUserWithEmailAndPassword(
+              email: newUser.login, password: newUser.password)
+          .then((data) {
+        response = {"isCreated": true, "message": data.user!.uid};
+      }).catchError((error) {
+        response = {"isCreated": false, "message": error.message};
+      });
+      return response;
+    } catch (exception) {
+      print(exception.toString());
+      return {};
+    }
+  }
+
+  Future<bool> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (exception) {
+      print(exception);
+      return false;
     }
   }
 

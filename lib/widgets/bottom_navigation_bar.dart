@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/screens/cart/cart_screen.dart';
 import 'package:miaged/screens/home/home_page.dart';
 import 'package:miaged/screens/profile/profile_screen.dart';
+import 'package:miaged/tools/constant.dart';
 
 typedef void IntCallback(int val);
 

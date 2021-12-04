@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/services/product_service.dart';
+import 'package:miaged/tools/constant.dart';
 import 'package:miaged/widgets/popup.dart';
 
 class CartItem extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:miaged/screens/home/components/product_card.dart';
 import 'package:miaged/services/product_service.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
-import '../../constant.dart';
+import '../../tools/constant.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,19 +17,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     super.initState();
     listProduct = _productService.getProducts();
   }
 
-  void callBack(ProductFamily family) async{
+  void callBack(ProductFamily family) async {
     listProduct = _productService.getProductsByFamily(family);
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   final ProductService _productService = ProductService();
   late Future<List<Product>> listProduct;
 
@@ -38,7 +36,9 @@ class _HomePageState extends State<HomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Categories(callBackParent: callBack,),
+        Categories(
+          callBackParent: callBack,
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -57,18 +57,20 @@ class _HomePageState extends State<HomePage> {
                           crossAxisSpacing: defaultPadding,
                           childAspectRatio: 0.75,
                         ),
-                        itemBuilder: (context, index) => ProductCard(
-                            product: products[index],
-                            press: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailsScreen(
-                                        product: products[index])))));
+                        itemBuilder: (context, index) {
+                          return ProductCard(
+                              product: products[index],
+                              press: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsScreen(
+                                          product: products[index]))));
+                        });
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
-                  return const DogoProgressIndicator();
+                  return const Center(child: DogoProgressIndicator());
                 },
               ),
             ),

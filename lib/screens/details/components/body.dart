@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/screens/details/components/add_to_cart.dart';
 import 'package:miaged/screens/details/components/description.dart';
 import 'package:miaged/screens/details/components/product_title_with_image.dart';
+import 'package:miaged/tools/constant.dart';
 
 import 'brand_size.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import '../constant.dart';
+import '../tools/constant.dart';
 
 class DogoProgressIndicator extends StatefulWidget {
   const DogoProgressIndicator({Key? key}) : super(key: key);

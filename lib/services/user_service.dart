@@ -13,8 +13,8 @@ class UserService {
           AuthenticationService();
       var userDocId;
       await _store
-          .collection(User.COLLECTION_NAME)
-          .where(User.USER_UID,
+          .collection(MiagedUser.COLLECTION_NAME)
+          .where(MiagedUser.USER_UID,
               isEqualTo: _authenticationService.getCurrentUserId())
           .get()
           .then((value) => {
@@ -30,13 +30,15 @@ class UserService {
     }
   }
 
-  Future<User?> getCurrentUser() async {
+  Future<MiagedUser?> getCurrentUser() async {
     try {
       var userDocId = await getUserDocId();
-      DocumentSnapshot documentSnapshot =
-          await _store.collection(User.COLLECTION_NAME).doc(userDocId).get();
+      DocumentSnapshot documentSnapshot = await _store
+          .collection(MiagedUser.COLLECTION_NAME)
+          .doc(userDocId)
+          .get();
       if (documentSnapshot.exists) {
-        User _currentUser = User.fromSnapshot(documentSnapshot);
+        MiagedUser _currentUser = MiagedUser.fromSnapshot(documentSnapshot);
         return _currentUser;
       }
     } catch (exception) {
@@ -45,21 +47,42 @@ class UserService {
     }
   }
 
-  Future updateUser(User user) async {
+  Future updateUser(MiagedUser user) async {
     try {
       var userDocId = await getUserDocId();
-      await _store.collection(User.COLLECTION_NAME).doc(userDocId).update({
-        User.LOGIN: user.login,
-        User.PASSWORD: user.password,
-        User.ADDRESS: user.address,
-        User.POSTAL_CODE: user.postalCode,
-        User.BIRTHDAY_DATE: user.birthDayDate,
-        User.AVATAR_LINK: user.avatarLink
+      await _store
+          .collection(MiagedUser.COLLECTION_NAME)
+          .doc(userDocId)
+          .update({
+        MiagedUser.LOGIN: user.login,
+        MiagedUser.PASSWORD: user.password,
+        MiagedUser.ADDRESS: user.address,
+        MiagedUser.POSTAL_CODE: user.postalCode,
+        MiagedUser.BIRTHDAY_DATE: user.birthDayDate,
+        MiagedUser.AVATAR_LINK: user.avatarLink
       });
       return true;
     } catch (exception) {
       print(exception);
       return false;
+    }
+  }
+
+  Future<Map<String, dynamic>> newUser(MiagedUser user) async {
+    try {
+      Map<String, dynamic> ret = {};
+      await _store
+          .collection(MiagedUser.COLLECTION_NAME)
+          .add(MiagedUser.toJSON(user))
+          .then((newUser) {
+        ret = {"isCreated": true, "message": newUser.id};
+      }).catchError((error) {
+        ret = {"isCreated": false, "message": error.message};
+      });
+      return ret;
+    } catch (exception) {
+      print(exception);
+      return {};
     }
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/product_service.dart';
 import 'package:miaged/services/user_service.dart';
+import 'package:miaged/tools/constant.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AuthenticationService _authenticationService = AuthenticationService();
@@ -16,6 +16,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () async => _authenticationService.signOut(),
+      ),
       title: Text(
         "Miaged",
         style: GoogleFonts.comfortaa(
@@ -23,22 +27,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       backgroundColor: const Color(colorSchemeBar),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () {
-          // Navigator.pop(context);
-        },
-      ),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.favorite_border_outlined),
-          onPressed: () async {
-            // await _authenticationService.signOut();
-            // await _userService.getCurrentUser();
-            // await _productService.getProductsByFamily("ZuOLid8cwPQmUnnf2lTJ");
-          },
-        ),
-      ],
     );
   }
 }

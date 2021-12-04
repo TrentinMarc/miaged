@@ -29,10 +29,10 @@ class ProductService {
       var userDocId = await _userService.getUserDocId();
       if (userDocId != "" && userDocId != null) {
         await _store
-            .collection(User.COLLECTION_NAME)
+            .collection(MiagedUser.COLLECTION_NAME)
             .doc(userDocId)
-            .collection(User.SUB_COLLECTION_CART_NAME)
-            .add({User.SUB_COLLECTION_CART_ID_PRODUCT: idProduct})
+            .collection(MiagedUser.SUB_COLLECTION_CART_NAME)
+            .add({MiagedUser.SUB_COLLECTION_CART_ID_PRODUCT: idProduct})
             .then((_) => print("Correctly added to cart"))
             .catchError((error) => print("Add to cart fail : " + error));
       } else {
@@ -51,13 +51,13 @@ class ProductService {
 
       List<String> products = [];
       QuerySnapshot querySnapshot = await _store
-          .collection(User.COLLECTION_NAME)
+          .collection(MiagedUser.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(User.SUB_COLLECTION_CART_NAME)
+          .collection(MiagedUser.SUB_COLLECTION_CART_NAME)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          products.add(doc[User.SUB_COLLECTION_CART_ID_PRODUCT]);
+          products.add(doc[MiagedUser.SUB_COLLECTION_CART_ID_PRODUCT]);
         }
       }
       return products;
@@ -73,13 +73,13 @@ class ProductService {
       final UserService _userService = UserService();
       var userDocId = await _userService.getUserDocId();
       QuerySnapshot querySnapshot = await _store
-          .collection(User.COLLECTION_NAME)
+          .collection(MiagedUser.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(User.SUB_COLLECTION_CART_NAME)
+          .collection(MiagedUser.SUB_COLLECTION_CART_NAME)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          await getOne(doc[User.SUB_COLLECTION_CART_ID_PRODUCT])
+          await getOne(doc[MiagedUser.SUB_COLLECTION_CART_ID_PRODUCT])
               .then((product) => products.add(product!));
         }
       }
@@ -95,9 +95,9 @@ class ProductService {
       final UserService _userService = UserService();
       var userDocId = await _userService.getUserDocId();
       QuerySnapshot querySnapshot = await _store
-          .collection(User.COLLECTION_NAME)
+          .collection(MiagedUser.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(User.SUB_COLLECTION_CART_NAME)
+          .collection(MiagedUser.SUB_COLLECTION_CART_NAME)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -116,9 +116,9 @@ class ProductService {
       final UserService _userService = UserService();
       var userDocId = await _userService.getUserDocId();
       CollectionReference ref = _store
-          .collection(User.COLLECTION_NAME)
+          .collection(MiagedUser.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(User.SUB_COLLECTION_CART_NAME);
+          .collection(MiagedUser.SUB_COLLECTION_CART_NAME);
 
       ref.snapshots().listen((querySnapshot) async* {
         print(querySnapshot.docs.length);
@@ -206,10 +206,10 @@ class ProductService {
       var userDocId = await _userService.getUserDocId();
       var ret = false;
       await _store
-          .collection(User.COLLECTION_NAME)
+          .collection(MiagedUser.COLLECTION_NAME)
           .doc(userDocId)
-          .collection(User.SUB_COLLECTION_CART_NAME)
-          .where(User.SUB_COLLECTION_CART_ID_PRODUCT, isEqualTo: id)
+          .collection(MiagedUser.SUB_COLLECTION_CART_NAME)
+          .where(MiagedUser.SUB_COLLECTION_CART_ID_PRODUCT, isEqualTo: id)
           .limit(1)
           .get()
           .then((querySnapshot) {

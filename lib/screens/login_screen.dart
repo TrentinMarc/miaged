@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/screens/register.dart';
+import 'package:miaged/screens/reset_password.dart';
 import 'package:miaged/services/authentication.dart';
+import 'package:miaged/tools/constant.dart';
 import 'package:miaged/widgets/popup.dart';
 
 class LoginDemo extends StatefulWidget {
@@ -35,7 +36,7 @@ class _LoginDemoState extends State<LoginDemo> {
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 40, bottom: 0),
               child: Text(
-                "Connexion",
+                "Connection",
                 style: GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
               ),
             ),
@@ -69,15 +70,19 @@ class _LoginDemoState extends State<LoginDemo> {
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
-                    hintText: 'Saisir un mdp sécurisé'),
+                    hintText: 'Type your password ...'),
               ),
             ),
             TextButton(
               onPressed: () {
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ResetPasswordScreen()),
+                );
               },
               child: Text(
-                'Mot de passe oublié ?',
+                'Forgotten password ?',
                 style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.blue),
               ),
             ),
@@ -88,9 +93,6 @@ class _LoginDemoState extends State<LoginDemo> {
                   color: Colors.amber, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
                 onPressed: () async {
-                  // context.read<AuthenticationService>().signIn(
-                  //     email: emailController.text.trim(),
-                  //     password: pwdController.text.trim());
                   var email = emailController.text.trim();
                   var pwd = pwdController.text.trim();
                   var result = await _authenticationService
@@ -99,15 +101,15 @@ class _LoginDemoState extends State<LoginDemo> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => const Popup(
-                        popupName: "Erreur",
-                        popupMessage: "Identifiants incorrects",
+                        popupName: "Error",
+                        popupMessage: "Wrong credentials",
                         popupStyle: popupError,
                       ),
                     );
                   }
                 },
                 child: Text(
-                  'Se connecter',
+                  'Sign in',
                   style:
                       GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
                 ),
@@ -117,18 +119,18 @@ class _LoginDemoState extends State<LoginDemo> {
               height: 50,
             ),
             Text(
-              'Nouvel utilisateur ?',
+              'New user ?',
               style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),
             ),
             TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Register()),
+                    MaterialPageRoute(builder: (context) => RegisterScreen()),
                   );
                 },
                 child: Text(
-                  'Créer un compte',
+                  'Sign up',
                   style:
                       GoogleFonts.comfortaa(fontSize: 12, color: Colors.blue),
                 ))

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class MiagedUser {
   static const COLLECTION_NAME = "user";
   static const SUB_COLLECTION_CART_NAME = "cart";
   static const USER_UID = "UID";
@@ -12,6 +12,8 @@ class User {
   static const BIRTHDAY_DATE = "birthdayDate";
   static const POSTAL_CODE = "postalCode";
   static const CITY = "city";
+  static const DEFAULT_AVATAR_LINK =
+      "https://stickers-muraux-enfant.fr/12823/sticker-hublot-mario-waluigi.jpg";
 
   late String _UID;
   late String _avatarLink;
@@ -38,13 +40,20 @@ class User {
 
   String get city => _city;
 
-  User(this._UID, this._avatarLink, this._login, this._password,
+  void setUID(String UID) {
+    _UID = UID;
+  }
+
+  MiagedUser(this._UID, this._avatarLink, this._login, this._password,
       this._birthDayDate, this._address, this._postalCode, this._city);
 
-  User.forUpdate(this._login, this._password, this._birthDayDate, this._address,
-      this._postalCode, this._city, this._avatarLink);
+  MiagedUser.forUpdate(this._login, this._password, this._birthDayDate,
+      this._address, this._postalCode, this._city, this._avatarLink);
 
-  User.fromSnapshot(DocumentSnapshot snapshot) {
+  MiagedUser.forSignUp(this._login, this._password, this._birthDayDate,
+      this._address, this._postalCode, this._city, this._avatarLink);
+
+  MiagedUser.fromSnapshot(DocumentSnapshot snapshot) {
     _UID = snapshot[USER_UID];
     _avatarLink = snapshot[AVATAR_LINK];
     _login = snapshot[LOGIN];
@@ -53,6 +62,21 @@ class User {
     _address = snapshot[ADDRESS];
     _postalCode = snapshot[POSTAL_CODE];
     _city = snapshot[CITY];
+  }
+
+  static Map<String, String> toJSON(MiagedUser user) {
+    Map<String, String> json = {
+      USER_UID: user.UID,
+      LOGIN: user.login,
+      PASSWORD: user.password,
+      BIRTHDAY_DATE: user.birthDayDate,
+      ADDRESS: user.address,
+      POSTAL_CODE: user.postalCode,
+      CITY: user.city,
+      AVATAR_LINK: user._avatarLink
+    };
+
+    return json;
   }
 
   @override

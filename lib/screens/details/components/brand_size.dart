@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/constant.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/tools/constant.dart';
 
 class BrandAndSize extends StatelessWidget {
   const BrandAndSize({
@@ -48,7 +48,6 @@ class BrandAndSize extends StatelessWidget {
             ),
           ),
         ),
-
       ],
     );
   }

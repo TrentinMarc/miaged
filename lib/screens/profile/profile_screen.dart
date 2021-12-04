@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -6,9 +8,8 @@ import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/user_service.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 import 'package:miaged/widgets/popup.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../constant.dart';
+import '../../tools/constant.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final UserService _userService = UserService();
   final AuthenticationService _authenticationService = AuthenticationService();
-  late Future<User?> user;
+  late Future<MiagedUser?> user;
 
   var loginController = TextEditingController();
   var passwordController = TextEditingController();
@@ -31,15 +32,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   var avatarController = TextEditingController();
 
+  ImageProvider _test(link) {
+    try {
+      return CachedNetworkImageProvider(link);
+    } on Exception catch (exception) {
+      return const CachedNetworkImageProvider(defaultAvatarLink);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     user = _userService.getCurrentUser();
+
+    String countryValue = "";
+    String stateValue = "";
+    String cityValue = "";
     return FutureBuilder(
       future: user,
-      builder: (context, AsyncSnapshot<User?> snapshot) {
+      builder: (context, AsyncSnapshot<MiagedUser?> snapshot) {
         if (snapshot.data != null) {
           final data = snapshot.data;
-          final User currentUser = data!;
+          final MiagedUser currentUser = data!;
           loginController.text = currentUser.login;
           passwordController.text = currentUser.password;
           addressController.text = currentUser.address;
@@ -87,11 +100,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                 );
                               },
-                              child: CircleAvatar(
-                                backgroundImage: const CachedNetworkImageProvider(defaultAvatarLink),
-                                foregroundImage: CachedNetworkImageProvider(currentUser.avatarLink),
-                                backgroundColor: Colors.black,
-                                maxRadius: 55,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.network(
+                                  currentUser.avatarLink,
+                                  // MiagedUser.DEFAULT_AVATAR_LINK,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.network(
+                                      MiagedUser.DEFAULT_AVATAR_LINK,
+                                      width: 110.0,
+                                      height: 110.0,
+                                      fit: BoxFit.fill,
+                                    );
+                                  },
+                                  width: 110.0,
+                                  height: 110.0,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           ),
@@ -103,11 +128,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               FocusScope.of(context).unfocus();
                               showDialog(
                                 context: context,
-                                builder: (BuildContext context) =>
-                                    const Popup(
+                                builder: (BuildContext context) => const Popup(
                                   popupName: "Tips",
                                   popupMessage:
-                                      "Here you can update your perosnal data, click the picture to edit ! (if passed url isn't available, you'll have the default avatar.)",
+                                      "Here you can update your perosnal data, click the picture to edit ! (if passed url isn't available, you'll have the Waluigi default avatar.)",
                                   popupStyle: popupInfo,
                                 ),
                               );
@@ -134,125 +158,101 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(flex: 2, child: Text("Login")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: loginController,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Login',
-                                      hintText: 'abc@gmail.com',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          TextFormField(
+                            controller: loginController,
+                            readOnly: true,
+                            style: GoogleFonts.comfortaa(
+                                fontSize: 16, color: Colors.black),
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.alternate_email),
+                                border: OutlineInputBorder(),
+                                labelText: 'Login',
+                                hintText: 'abc@gmail.com'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(flex: 2, child: Text("Password")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: passwordController,
-                                  readOnly: true,
-                                  obscureText: true,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Password',
-                                      hintText: 'abc@gmail.com',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          TextFormField(
+                            controller: passwordController,
+                            readOnly: true,
+                            obscureText: true,
+                            style: GoogleFonts.comfortaa(
+                                fontSize: 16, color: Colors.black),
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.password),
+                                border: OutlineInputBorder(),
+                                labelText: 'Password',
+                                hintText: 'Type a secure password'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(
-                                  flex: 2, child: Text("Birthday Date")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: bDayController,
-                                  onTap: () {
-                                    showDatePicker(
-                                            context: context,
-                                            initialDate: DateTime.now(),
-                                            firstDate: DateTime(2001),
-                                            lastDate: DateTime(2025))
-                                        .then((date) {
-                                      if (date != null) {
-                                        bDayController.text =
-                                            DateFormat('dd/MM/yyyy')
-                                                .format(date);
-                                      }
-                                    });
-                                  },
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Birthday Date',
-                                      hintText: '11/09/1999',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          TextFormField(
+                            controller: bDayController,
+                            onTap: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1970),
+                                      lastDate: DateTime.now())
+                                  .then((date) {
+                                if (date != null) {
+                                  bDayController.text =
+                                      DateFormat('dd/MM/yyyy').format(date);
+                                }
+                              });
+                            },
+                            style: GoogleFonts.comfortaa(
+                                fontSize: 16, color: Colors.black),
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.cake),
+                                border: OutlineInputBorder(),
+                                labelText: 'Birthday Date',
+                                hintText: '01/01/1970'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(flex: 2, child: Text("Address")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: addressController,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Address',
-                                      hintText: '12 avenue du Maréchal Juin',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          CSCPicker(
+                            disableCountry: true,
+                            defaultCountry: DefaultCountry.values
+                                .elementAt(DefaultCountry.France.index),
+                            showStates: true,
+                            showCities: true,
+                            onCountryChanged: (value) {
+                              setState(() {
+                                if (value != null) {
+                                  countryValue = value;
+                                }
+                              });
+                            },
+                            onStateChanged: (value) {
+                              setState(() {
+                                if (value != null) {
+                                  stateValue = value;
+                                }
+                              });
+                            },
+                            onCityChanged: (value) {
+                              setState(() {
+                                if (value != null) {
+                                  cityValue = value;
+                                  cityController.text = cityValue;
+                                }
+                              });
+                            },
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(
-                                  flex: 2, child: Text("Postal Code")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: postalCodeController,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Postal Code',
-                                      hintText: '06000',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          TextFormField(
+                            controller: cityController,
+                            style: GoogleFonts.comfortaa(
+                                fontSize: 16, color: Colors.black),
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.location_city),
+                                border: OutlineInputBorder(),
+                                labelText: 'City',
+                                hintText: 'Nice'),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Flexible(flex: 2, child: Text("City")),
-                              Flexible(
-                                flex: 6,
-                                child: TextField(
-                                  controller: cityController,
-                                  decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: 'City',
-                                      hintText: 'Nice',
-                                      contentPadding: EdgeInsets.all(8.0)),
-                                ),
-                              )
-                            ],
+                          TextFormField(
+                            controller: postalCodeController,
+                            style: GoogleFonts.comfortaa(
+                                fontSize: 16, color: Colors.black),
+                            decoration: const InputDecoration(
+                                prefixIcon:
+                                    Icon(Icons.local_post_office_outlined),
+                                border: OutlineInputBorder(),
+                                labelText: 'Postal Code',
+                                hintText: '06000'),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -276,7 +276,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       var city = cityController.text.trim();
                                       var avatarLink =
                                           avatarController.text.trim();
-                                      var newData = User.forUpdate(
+                                      var newData = MiagedUser.forUpdate(
                                           login,
                                           password,
                                           birthdayDate,

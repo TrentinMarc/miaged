@@ -5,7 +5,7 @@ import 'package:miaged/screens/profile/profile_screen.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/bottom_navigation_bar.dart';
 
-import '../constant.dart';
+import '../tools/constant.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
