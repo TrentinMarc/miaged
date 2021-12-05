@@ -36,43 +36,43 @@ class _HomePageState extends State<HomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Categories(
-          callBackParent: callBack,
+        Container(
+          color: Theme.of(context).appBarTheme.backgroundColor,
+          child: Categories(
+            callBackParent: callBack,
+          ),
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Container(
-              child: FutureBuilder<List<Product>>(
-                future: listProduct,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final products = snapshot.data;
-                    return GridView.builder(
-                        itemCount: products!.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: defaultPadding,
-                          crossAxisSpacing: defaultPadding,
-                          childAspectRatio: 0.75,
-                        ),
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                              product: products[index],
-                              press: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(
-                                          product: products[index]))));
-                        });
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                  // By default, show a loading spinner.
-                  return const Center(child: DogoProgressIndicator());
-                },
-              ),
+            padding: const EdgeInsets.all(15.0),
+            child: FutureBuilder<List<Product>>(
+              future: listProduct,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final products = snapshot.data;
+                  return GridView.builder(
+                      itemCount: products!.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: defaultPadding,
+                        crossAxisSpacing: defaultPadding,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemBuilder: (context, index) {
+                        return ProductCard(
+                            product: products[index],
+                            press: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailsScreen(
+                                        product: products[index]))));
+                      });
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const Center(child: DogoProgressIndicator());
+              },
             ),
           ),
         ),

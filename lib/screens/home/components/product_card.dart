@@ -25,7 +25,7 @@ class ProductCard extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               width: 200,
               decoration: BoxDecoration(
-                color: const Color(colorSchemeItem),
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
@@ -40,18 +40,20 @@ class ProductCard extends StatelessWidget {
               product.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: Theme.of(context).primaryColor),
             ),
           ),
           Text(
             product.brand,
-            style: const TextStyle(
-                color: Colors.white, fontStyle: FontStyle.italic),
+            style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontStyle: FontStyle.italic),
           ),
           Text(
             "${product.price.toString()}€ | ${product.size}",
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
           ),
         ],
       ),

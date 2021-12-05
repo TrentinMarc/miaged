@@ -33,7 +33,7 @@ class _CartBottomState extends State<CartBottom> {
                       fontWeight: FontWeight.w300),
                 ),
               ),
-              color: const Color(colorSchemeSubBar),
+              color: Theme.of(context).appBarTheme.backgroundColor,
             ),
             flex: 3,
           ),
@@ -58,7 +58,7 @@ class _CartBottomState extends State<CartBottom> {
                       return const DogoProgressIndicator();
                     }),
               ),
-              color: const Color(colorSchemeSubBar),
+              color: Theme.of(context).appBarTheme.backgroundColor,
             ),
             flex: 4,
           ),

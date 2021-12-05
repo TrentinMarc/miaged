@@ -22,7 +22,7 @@ class Description extends StatelessWidget {
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  color: Color(colorSchemeItem)),
+                  color: Color(colorSchemeItemLight)),
               textAlign: TextAlign.left,
             ),
             Text(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/services/product_service.dart';
-import 'package:miaged/tools/constant.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class CartHeader extends StatefulWidget {
@@ -21,7 +20,7 @@ class _CartHeaderState extends State<CartHeader> {
     return Flexible(
       flex: 1,
       child: Container(
-        color: const Color(colorSchemeSubBar),
+        color: Theme.of(context).appBarTheme.backgroundColor,
         child: Center(
           child: FittedBox(
             child: Column(

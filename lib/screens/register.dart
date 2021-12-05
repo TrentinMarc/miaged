@@ -7,6 +7,7 @@ import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/user_service.dart';
 import 'package:miaged/tools/constant.dart';
 import 'package:miaged/tools/validators.dart';
+import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/popup.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,15 +40,9 @@ class _LoginDemoState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          "Miaged",
-          style: GoogleFonts.comfortaa(
-              color: Colors.white, fontSize: 35, fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color(colorSchemeBar),
+      appBar: MyAppBar(
+        title: "Miaged",
+        popable: true,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -59,8 +54,7 @@ class _LoginDemoState extends State<RegisterScreen> {
                     left: 15.0, right: 15.0, top: 40, bottom: 0),
                 child: Text(
                   "Sign up",
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
+                  style: GoogleFonts.comfortaa(fontSize: 30),
                 ),
               ),
               Padding(
@@ -78,8 +72,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                 child: TextFormField(
                   controller: emailController,
                   validator: (text) => Validators.validateEmail(text!),
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.alternate_email),
                       border: OutlineInputBorder(),
@@ -94,8 +89,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                   controller: pwdController,
                   obscureText: true,
                   validator: (text) => Validators.validatePassword(text!),
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.password),
                       border: OutlineInputBorder(),
@@ -111,8 +107,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                   obscureText: true,
                   validator: (text) =>
                       Validators.confirmPassword(text!, pwdController.text),
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.password),
                       border: OutlineInputBorder(),
@@ -139,8 +136,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                       }
                     });
                   },
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.cake),
                       border: OutlineInputBorder(),
@@ -153,8 +151,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                     left: 15.0, right: 15.0, top: 15, bottom: 0),
                 child: TextFormField(
                   controller: addressController,
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.place),
                       border: OutlineInputBorder(),
@@ -166,6 +165,13 @@ class _LoginDemoState extends State<RegisterScreen> {
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 15.0, top: 15, bottom: 0),
                 child: CSCPicker(
+                  dropdownDecoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: const Border(
+                          bottom: BorderSide(color: Colors.white))),
+                  disabledDropdownDecoration: const BoxDecoration(
+                      color: Colors.grey,
+                      border: Border(bottom: BorderSide(color: Colors.white))),
                   disableCountry: true,
                   defaultCountry: DefaultCountry.values
                       .elementAt(DefaultCountry.France.index),
@@ -200,8 +206,9 @@ class _LoginDemoState extends State<RegisterScreen> {
                     left: 15.0, right: 15.0, top: 15, bottom: 0),
                 child: TextFormField(
                   controller: cityController,
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(
+                    fontSize: 16,
+                  ),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.location_city),
                       border: OutlineInputBorder(),
@@ -215,8 +222,7 @@ class _LoginDemoState extends State<RegisterScreen> {
                 child: TextFormField(
                   controller: postalCodeController,
                   validator: (text) => Validators.postalCodeValidator(text!),
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(fontSize: 16),
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.local_post_office_outlined),
                       border: OutlineInputBorder(),
@@ -294,7 +300,8 @@ class _LoginDemoState extends State<RegisterScreen> {
                     child: Text(
                       'Sign Up',
                       style: GoogleFonts.comfortaa(
-                          fontSize: 16, color: Colors.black),
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),

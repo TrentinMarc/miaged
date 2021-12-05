@@ -21,7 +21,7 @@ class BrandAndSize extends StatelessWidget {
               children: [
                 const TextSpan(
                     text: "Brand\n",
-                    style: TextStyle(color: Color(colorSchemeItem))),
+                    style: TextStyle(color: Color(colorSchemeItemLight))),
                 TextSpan(
                   text: product.brand,
                   style: Theme.of(context).textTheme.headline5!.copyWith(
@@ -38,7 +38,7 @@ class BrandAndSize extends StatelessWidget {
               children: [
                 const TextSpan(
                     text: "Size\n",
-                    style: TextStyle(color: Color(colorSchemeItem))),
+                    style: TextStyle(color: Color(colorSchemeItemLight))),
                 TextSpan(
                   text: product.size,
                   style: Theme.of(context).textTheme.headline5!.copyWith(

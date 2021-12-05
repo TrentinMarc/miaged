@@ -4,6 +4,7 @@ import 'package:miaged/screens/register.dart';
 import 'package:miaged/screens/reset_password.dart';
 import 'package:miaged/services/authentication.dart';
 import 'package:miaged/tools/constant.dart';
+import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/popup.dart';
 
 class LoginDemo extends StatefulWidget {
@@ -19,16 +20,16 @@ class _LoginDemoState extends State<LoginDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          "Miaged",
-          style: GoogleFonts.comfortaa(
-              color: Colors.white, fontSize: 35, fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color(colorSchemeBar),
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Miaged",
+      //     style: GoogleFonts.comfortaa(
+      //         color: Colors.white, fontSize: 35, fontWeight: FontWeight.w700),
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: const Color(colorSchemeBarLight),
+      // ),
+      appBar: const MyAppBar(popable: false, title: "Miaged"),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -37,7 +38,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   left: 15.0, right: 15.0, top: 40, bottom: 0),
               child: Text(
                 "Connection",
-                style: GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
+                style: GoogleFonts.comfortaa(fontSize: 30),
               ),
             ),
             Padding(
@@ -53,7 +54,7 @@ class _LoginDemoState extends State<LoginDemo> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: emailController,
-                style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                style: GoogleFonts.comfortaa(fontSize: 16),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Login',
@@ -66,7 +67,7 @@ class _LoginDemoState extends State<LoginDemo> {
               child: TextField(
                 controller: pwdController,
                 obscureText: true,
-                style: GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                style: GoogleFonts.comfortaa(fontSize: 16),
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -110,8 +111,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 },
                 child: Text(
                   'Sign in',
-                  style:
-                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  style: GoogleFonts.comfortaa(fontSize: 16),
                 ),
               ),
             ),
@@ -120,7 +120,7 @@ class _LoginDemoState extends State<LoginDemo> {
             ),
             Text(
               'New user ?',
-              style: GoogleFonts.comfortaa(fontSize: 12, color: Colors.black),
+              style: GoogleFonts.comfortaa(fontSize: 12),
             ),
             TextButton(
                 onPressed: () {
