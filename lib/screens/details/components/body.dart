@@ -35,9 +35,9 @@ class _BodyState extends State<Body> {
                     right: defaultPadding,
                   ),
                   // height: 500,
-                  decoration: const BoxDecoration(
-                    color: Color(colorSchemeSubBar),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).appBarTheme.backgroundColor,
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
                     ),

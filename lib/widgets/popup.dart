@@ -33,6 +33,7 @@ class _PopupState extends State<Popup> with SingleTickerProviderStateMixin {
     controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
         // controller.reset();
+        // controller.forward();
       }
     });
   }
@@ -50,7 +51,6 @@ class _PopupState extends State<Popup> with SingleTickerProviderStateMixin {
       title: Text(widget.popupName,
           textAlign: TextAlign.center,
           style: GoogleFonts.montserrat(
-            color: Colors.black,
             fontSize: 35,
           )),
       content: Column(
@@ -61,11 +61,12 @@ class _PopupState extends State<Popup> with SingleTickerProviderStateMixin {
               onLoaded: (composotion) {
             controller.duration = composotion.duration;
             controller.forward();
-          
           }, fit: BoxFit.fill, width: 200, height: 200),
           Text(
             widget.popupMessage,
-            style: GoogleFonts.openSans(color: Colors.black, fontSize: 15, ),
+            style: GoogleFonts.openSans(
+              fontSize: 15,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

@@ -27,7 +27,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   left: 15.0, right: 15.0, top: 40, bottom: 0),
               child: Text(
                 "Reset your password",
-                style: GoogleFonts.comfortaa(fontSize: 30, color: Colors.black),
+                style: GoogleFonts.comfortaa(fontSize: 30),
               ),
             ),
             Padding(
@@ -45,7 +45,7 @@ class ResetPasswordScreen extends StatelessWidget {
               child: Text(
                 "Type your email address, if an account is lniked to this email, you'll get a reset email in few minutes...",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.comfortaa(fontSize: 15, color: Colors.black),
+                style: GoogleFonts.comfortaa(fontSize: 15),
               ),
             ),
             Padding(
@@ -70,8 +70,8 @@ class ResetPasswordScreen extends StatelessWidget {
                           height: 50,
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                                onSurface: Colors.transparent,
-                                primary: const Color(colorSchemeBar)),
+                              onSurface: Colors.transparent,
+                            ),
                             onPressed: () async {
                               var mail = emailController.text.trim();
                               if (Validators.validateEmail(mail) == null) {
@@ -103,7 +103,10 @@ class ResetPasswordScreen extends StatelessWidget {
                               Icons.refresh,
                               color: Colors.white,
                             ),
-                            label: const Text("Reset my password"),
+                            label: const Text("Reset my password",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
                           )),
                     ),
                   ),

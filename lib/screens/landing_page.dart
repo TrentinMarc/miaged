@@ -5,8 +5,6 @@ import 'package:miaged/screens/profile/profile_screen.dart';
 import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/bottom_navigation_bar.dart';
 
-import '../tools/constant.dart';
-
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
 
@@ -15,7 +13,11 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final List _children = [CartScreen(), HomePage(), ProfileScreen()];
+  final List _children = [
+    const CartScreen(),
+    const HomePage(),
+    const ProfileScreen()
+  ];
 
   int index = 1;
 
@@ -28,8 +30,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(colorSchemeMain),
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         popable: false,
         title: "Miaged",
       ),

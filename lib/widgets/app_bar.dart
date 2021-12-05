@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/tools/constant.dart';
+
+import 'change_theme_switch.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({Key? key, required this.popable, required this.title})
@@ -30,12 +31,13 @@ class _MyAppBarState extends State<MyAppBar> {
     return AppBar(
       leading: isPopable(),
       title: Text(
-        "Miaged",
+        widget.title,
         style: GoogleFonts.comfortaa(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700),
       ),
+      actions: const [ChangeThemeButtonWidget()],
       centerTitle: true,
-      backgroundColor: const Color(colorSchemeBar),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
     );
   }
 }

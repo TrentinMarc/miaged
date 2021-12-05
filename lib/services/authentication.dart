@@ -26,8 +26,7 @@ class AuthenticationService {
       User? user = result.user;
       return _userFromFirebaseUser(user);
     } catch (exception) {
-      print(exception.toString());
-      return null;
+      throw exception.toString();
     }
   }
 

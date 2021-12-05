@@ -26,7 +26,7 @@ class _CartItemState extends State<CartItem> {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: const Color(colorSchemeItem)),
+            color: Theme.of(context).cardColor),
         height: 70,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -50,11 +50,15 @@ class _CartItemState extends State<CartItem> {
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: GoogleFonts.montserrat(
-                            color: Colors.black, fontSize: 15),
+                        style: GoogleFonts.montserrat(fontSize: 15),
                       ),
                     ),
-                    Flexible(flex: 2, child: Text("${widget.product.price} €")),
+                    Flexible(
+                      flex: 2,
+                      child: Text(
+                        "${widget.product.price} €",
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -66,12 +70,11 @@ class _CartItemState extends State<CartItem> {
                     Icons.delete,
                     color: Colors.white,
                   ),
-                  fillColor: const Color(colorSchemeMain),
+                  fillColor: const Color(colorSchemeMainLight),
                   splashColor: Colors.red,
                   onPressed: () async {
                     var isDeleted =
                         await _productService.removeFromCart(widget.product.id);
-                    print(isDeleted);
                     if (isDeleted) {
                       showDialog(
                         context: context,
