@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/services/product_service.dart';
-import 'package:miaged/tools/constant.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
 class CartBottom extends StatefulWidget {
@@ -13,11 +12,11 @@ class CartBottom extends StatefulWidget {
 
 class _CartBottomState extends State<CartBottom> {
   final ProductService _productService = ProductService();
-  late Future<double> total_price;
+  late Future<double> totalPrice;
 
   @override
   Widget build(BuildContext context) {
-    total_price = _productService.getCartTotalPrice();
+    totalPrice = _productService.getCartTotalPrice();
     return Flexible(
       flex: 1,
       child: Row(
@@ -41,7 +40,7 @@ class _CartBottomState extends State<CartBottom> {
             child: Container(
               child: Center(
                 child: FutureBuilder<double>(
-                    future: total_price,
+                    future: totalPrice,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final price = snapshot.data;

@@ -16,15 +16,13 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int currentIndex = 1;
-  var screens = [CartScreen(), HomePage(), ProfileScreen()];
+  var screens = [const CartScreen(), const HomePage(), const ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       currentIndex: currentIndex,
-      // selectedItemColor: const Color(colorSchemeItemLight),
-      // unselectedItemColor: Colors.white,
       selectedFontSize: 16,
       iconSize: 30,
       onTap: (index) {
@@ -40,7 +38,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         BottomNavigationBarItem(
           icon: const Icon(Icons.credit_card),
           label: "Buy",
-          // backgroundColor: Color(colorSchemeBarLight),
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         ),
         BottomNavigationBarItem(

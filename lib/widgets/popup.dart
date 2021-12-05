@@ -32,7 +32,7 @@ class _PopupState extends State<Popup> with SingleTickerProviderStateMixin {
 
     controller.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        controller.reset();
+        // controller.reset();
         // controller.forward();
       }
     });

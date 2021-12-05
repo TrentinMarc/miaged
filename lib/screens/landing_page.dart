@@ -13,7 +13,11 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  final List _children = [CartScreen(), HomePage(), ProfileScreen()];
+  final List _children = [
+    const CartScreen(),
+    const HomePage(),
+    const ProfileScreen()
+  ];
 
   int index = 1;
 
@@ -26,7 +30,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(colorSchemeMain),
       appBar: const MyAppBar(
         popable: false,
         title: "Miaged",

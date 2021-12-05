@@ -15,6 +15,5 @@ class ChangeThemeButtonWidget extends StatelessWidget {
           final provider = Provider.of<ThemeProvider>(context, listen: false);
           provider.toggleTheme(value);
         });
-    return Container();
   }
 }

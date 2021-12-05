@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/models/product.dart';
-import 'package:miaged/services/authentication.dart';
 import 'package:miaged/services/product_service.dart';
 import 'package:miaged/widgets/dogo_progress_indicator.dart';
 
@@ -17,7 +16,6 @@ class AddToCart extends StatefulWidget {
 
 class _AddToCartState extends State<AddToCart>
     with SingleTickerProviderStateMixin {
-  final AuthenticationService _authenticationService = AuthenticationService();
   final ProductService _productService = ProductService();
   late bool isDisabled;
   late AnimationController controller;

@@ -8,6 +8,8 @@ import 'package:miaged/widgets/app_bar.dart';
 import 'package:miaged/widgets/popup.dart';
 
 class LoginDemo extends StatefulWidget {
+  const LoginDemo({Key? key}) : super(key: key);
+
   @override
   _LoginDemoState createState() => _LoginDemoState();
 }
@@ -126,7 +128,8 @@ class _LoginDemoState extends State<LoginDemo> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterScreen()),
                   );
                 },
                 child: Text(

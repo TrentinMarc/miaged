@@ -5,13 +5,15 @@ import 'package:miaged/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
+  const SplashScreenWrapper({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AppUser?>(context);
     if (user == null) {
-      return LoginDemo();
+      return const LoginDemo();
     } else {
-      return LandingPage();
+      return const LandingPage();
     }
   }
 }

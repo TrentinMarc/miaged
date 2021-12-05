@@ -99,11 +99,11 @@ class ResetPasswordScreen extends StatelessWidget {
                                 );
                               }
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.refresh,
                               color: Colors.white,
                             ),
-                            label: Text("Reset my password",
+                            label: const Text("Reset my password",
                                 style: TextStyle(
                                   color: Colors.white,
                                 )),

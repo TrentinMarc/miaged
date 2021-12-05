@@ -35,12 +35,11 @@ class _LoginDemoState extends State<RegisterScreen> {
   String cityValue = "";
 
   final _formKey = GlobalKey<FormState>();
-  GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         title: "Miaged",
         popable: true,
       ),

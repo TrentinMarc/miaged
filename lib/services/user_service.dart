@@ -11,17 +11,14 @@ class UserService {
     try {
       final AuthenticationService _authenticationService =
           AuthenticationService();
-      var userDocId;
+      String userDocId = "";
       await _store
           .collection(MiagedUser.COLLECTION_NAME)
           .where(MiagedUser.USER_UID,
               isEqualTo: _authenticationService.getCurrentUserId())
           .get()
           .then((value) => {
-                if (value.docs.isNotEmpty)
-                  {userDocId = value.docs[0].id}
-                else
-                  {userDocId = ""}
+                if (value.docs.isNotEmpty) {userDocId = value.docs[0].id}
               });
       return userDocId;
     } catch (exception) {

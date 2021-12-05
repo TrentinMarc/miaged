@@ -75,7 +75,6 @@ class _CartItemState extends State<CartItem> {
                   onPressed: () async {
                     var isDeleted =
                         await _productService.removeFromCart(widget.product.id);
-                    print(isDeleted);
                     if (isDeleted) {
                       showDialog(
                         context: context,
