@@ -15,7 +15,10 @@ class ResetPasswordScreen extends StatelessWidget {
         AuthenticationService();
     final TextEditingController emailController = TextEditingController();
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(
+        popable: true,
+        title: "Reset Password",
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

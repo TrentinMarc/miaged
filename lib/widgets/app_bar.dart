@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:miaged/services/authentication.dart';
-import 'package:miaged/services/product_service.dart';
-import 'package:miaged/services/user_service.dart';
 import 'package:miaged/tools/constant.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final AuthenticationService _authenticationService = AuthenticationService();
-  final ProductService _productService = ProductService();
-  final UserService _userService = UserService();
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const MyAppBar({Key? key, required this.popable, required this.title})
+      : super(key: key);
+  final bool popable;
+  final String title;
+
+  @override
+  State<MyAppBar> createState() => _MyAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  Widget? isPopable() {
+    if (widget.popable) {
+      return IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Navigator.pop(context),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () async => _authenticationService.signOut(),
-      ),
+      leading: isPopable(),
       title: Text(
         "Miaged",
         style: GoogleFonts.comfortaa(

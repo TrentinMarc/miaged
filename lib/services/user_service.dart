@@ -59,7 +59,8 @@ class UserService {
         MiagedUser.ADDRESS: user.address,
         MiagedUser.POSTAL_CODE: user.postalCode,
         MiagedUser.BIRTHDAY_DATE: user.birthDayDate,
-        MiagedUser.AVATAR_LINK: user.avatarLink
+        MiagedUser.AVATAR_LINK: user.avatarLink,
+        MiagedUser.CITY: user.city
       });
       return true;
     } catch (exception) {

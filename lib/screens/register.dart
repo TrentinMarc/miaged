@@ -23,7 +23,10 @@ class _LoginDemoState extends State<RegisterScreen> {
   final TextEditingController cityController = TextEditingController();
   final TextEditingController bdDateController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController confirmPwdController = TextEditingController();
+
   final AuthenticationService _authenticationService = AuthenticationService();
+
   final UserService _userService = UserService();
 
   String countryValue = "France";
@@ -98,6 +101,23 @@ class _LoginDemoState extends State<RegisterScreen> {
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                       hintText: 'Type a secure password'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                child: TextFormField(
+                  controller: confirmPwdController,
+                  obscureText: true,
+                  validator: (text) =>
+                      Validators.confirmPassword(text!, pwdController.text),
+                  style:
+                      GoogleFonts.comfortaa(fontSize: 16, color: Colors.black),
+                  decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.password),
+                      border: OutlineInputBorder(),
+                      labelText: 'Confirm password',
+                      hintText: 'Must match password above'),
                 ),
               ),
               Padding(

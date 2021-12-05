@@ -59,6 +59,14 @@ class AuthenticationService {
     }
   }
 
+  Future updatePassword(String newPassword) async {
+    try {
+      await _auth.currentUser!.updatePassword(newPassword);
+    } catch (exception) {
+      print(exception);
+    }
+  }
+
   Future signOut() async {
     try {
       return await _auth.signOut();

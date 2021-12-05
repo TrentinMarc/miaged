@@ -46,6 +46,9 @@ dependencies:
   email_validator: ^2.0.1
   csc_picker: ^0.2.6
   postal_code_jp: ^1.1.0
+  crypto: ^3.0.1
+  encrypt: ^5.0.1
+  crypt: ^4.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

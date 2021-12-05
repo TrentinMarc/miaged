@@ -29,7 +29,10 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(colorSchemeMain),
-      appBar: MyAppBar(),
+      appBar: MyAppBar(
+        popable: false,
+        title: "Miaged",
+      ),
       body: _children[index],
       bottomNavigationBar: BottomNavBar(
         callback: (int newIndex) {
