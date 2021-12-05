@@ -20,11 +20,11 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CartHeader(),
+        CartHeader(),
         CartBody(
           callBackParent: callBack,
         ),
-        const CartBottom(),
+        CartBottom(),
       ],
     );
   }
