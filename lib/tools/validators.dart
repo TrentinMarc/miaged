@@ -48,10 +48,14 @@ class Validators {
   static String? postalCodeValidator(String value) {
     String pattern = r"^((([0-8][0-9])|(9[0-5])|(2[AB]))[0-9]{3})|98000$";
     RegExp regex = RegExp(pattern);
-    if (!regex.hasMatch(value) && value.isNotEmpty) {
+    if (value.length > 5 && value.isNotEmpty) {
       return 'Postal code only can be composed of 5 digits';
     } else {
-      return null;
+      if (!regex.hasMatch(value)) {
+        return 'Postal code unknown';
+      } else {
+        return null;
+      }
     }
   }
 }

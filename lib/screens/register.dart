@@ -270,8 +270,7 @@ class _LoginDemoState extends State<RegisterScreen> {
                                 popupMessage: "User created, Welcome !",
                                 popupStyle: popupWelcome,
                               ),
-                            );
-                            Navigator.pop(context);
+                            ).then((value) => Navigator.of(context).pop());
                           } else {
                             showDialog(
                               context: context,
